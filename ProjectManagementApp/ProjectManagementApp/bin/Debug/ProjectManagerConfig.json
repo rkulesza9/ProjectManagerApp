@@ -1,0 +1,55 @@
+{
+  "m_lsProjects": [
+    {
+      "m_szName": "Testing 123",
+      "m_nStatusID": 3,
+      "m_dtLastWorkedOn": "2022-12-15T15:59:09.0335283-05:00",
+      "m_szProjectDir": "C:\\",
+      "m_szWrikeUrl": "https://wrike.com",
+      "m_szShortNote": "Hello World",
+      "m_szLongNote": "{\\rtf1\\ansi\\ansicpg1251\\deff0\\nouicompat{\\fonttbl{\\f0\\fnil\\fcharset204 Microsoft Sans Serif;}}\r\n{\\colortbl ;\\red255\\green0\\blue0;}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\ul\\f0\\fs18\\lang1049 Project Created On 12/15/2022 3:59:09 PM.\\par\r\n\\par\r\n\\cf1 Testing 123... Testing 123... \\par\r\n\\par\r\n\\cf0 Hello World\\par\r\n\\ulnone\\par\r\n}\r\n",
+      "m_nID": 1,
+      "m_bPinned": true,
+      "m_szGuid": "bfcad980-95b8-4fcb-84ee-fc1b360fe0b3",
+      "m_dtLastUpdated": "2022-12-15T15:59:09.0335283-05:00"
+    },
+    {
+      "m_szName": "New Project",
+      "m_nStatusID": 0,
+      "m_dtLastWorkedOn": "2022-12-15T16:08:09.1176035-05:00",
+      "m_szProjectDir": "C:\\",
+      "m_szWrikeUrl": "https://wrike.com",
+      "m_szShortNote": "Testing 123",
+      "m_szLongNote": "Project Created On 12/15/2022 4:08:09 PM.",
+      "m_nID": 4,
+      "m_bPinned": false,
+      "m_szGuid": "a016e849-ed15-46d8-996f-2eccf9a7820f",
+      "m_dtLastUpdated": "2022-12-15T16:08:09.1176035-05:00"
+    },
+    {
+      "m_szName": "New Project",
+      "m_nStatusID": 2,
+      "m_dtLastWorkedOn": "2022-12-16T08:44:21.7452746-05:00",
+      "m_szProjectDir": "C:\\",
+      "m_szWrikeUrl": "https://wrike.com",
+      "m_szShortNote": "",
+      "m_szLongNote": "Project Created On 12/16/2022 8:44:21 AM.",
+      "m_nID": 5,
+      "m_bPinned": false,
+      "m_szGuid": "aaac410d-aa7e-496b-8001-598d1ec3a201",
+      "m_dtLastUpdated": "2022-12-16T08:44:21.7452746-05:00"
+    }
+  ],
+  "m_lsResources": [
+    {
+      "m_szName": "Google",
+      "m_szDescription": "Cool place you can search for stuff online",
+      "m_szPath": "https://www.google.com",
+      "m_nProjectID": 1,
+      "m_nID": 0,
+      "m_bPinned": true,
+      "m_szGuid": "dbc2aa31-5ca1-4ce8-a4f6-5a58a193a42e",
+      "m_dtLastUpdated": "2022-12-16T10:19:57.3734679-05:00"
+    }
+  ]
+}

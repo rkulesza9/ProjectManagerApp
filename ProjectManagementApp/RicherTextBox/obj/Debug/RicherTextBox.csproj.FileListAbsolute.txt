@@ -1,0 +1,10 @@
+C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\bin\Debug\RicherTextBox.dll
+C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\bin\Debug\RicherTextBox.pdb
+C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.FindForm.resources
+C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.Properties.Resources.resources
+C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.ReplaceForm.resources
+C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.RicherTextBox.resources
+C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.csproj.GenerateResource.cache
+C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.csproj.CoreCompileInputs.cache
+C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.dll
+C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.pdb
