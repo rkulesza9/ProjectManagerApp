@@ -6,6 +6,7 @@ namespace ProjectManagementApp
 {
     public partial class fmLongNote : Form
     {
+        public CProject m_pProject;
         public fmLongNote()
         {
             InitializeComponent();
@@ -22,7 +23,13 @@ namespace ProjectManagementApp
         {
             try
             {
-                DialogResult = DialogResult.OK;
+                if (m_pProject == null)
+                {
+                    DialogResult = DialogResult.OK;
+                } else
+                {
+                    m_pProject.szLongNote = szText;
+                }
             }catch(Exception ex)
             {
                 Debug.WriteLine(ex);
@@ -33,8 +40,16 @@ namespace ProjectManagementApp
         {
             try
             {
-                DialogResult = DialogResult.Cancel;
-
+                if (m_pProject == null)
+                {
+                    DialogResult = DialogResult.Cancel;
+                }
+                else
+                {
+                    m_pProject.szLongNote = szText;
+                    Close();
+                    Dispose();
+                }
             }
             catch (Exception ex)
             {

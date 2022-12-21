@@ -42,7 +42,7 @@ namespace ProjectManagementApp
             try
             {
                 fmResources fm = new fmResources(m_pProject.m_szGuid);
-                fm.ShowDialog();
+                fm.Show();
             }catch(Exception ex)
             {
                 Debug.WriteLine(ex);
@@ -54,11 +54,9 @@ namespace ProjectManagementApp
             try
             {
                 fmLongNote fm = new fmLongNote();
+                fm.m_pProject = m_pProject;
                 fm.szText = m_pProject.m_szLongNote;
-                if(fm.ShowDialog() == DialogResult.OK)
-                {
-                    m_pProject.szLongNote = fm.szText;
-                }
+                fm.Show();
 
             }catch(Exception ex)
             {
