@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace ProjectManagementApp
                 lvProjects.ContextMenuStrip = new CRightClickMenu();
                 pgProject.PropertyValueChanged += PgProject_PropertyValueChanged;
                 CJsonDatabase.Initialize(CDefines.JSON_FILE_NAME);
+                Text = $"Project Manager - [{CDefines.JSON_FILE_NAME}]";
 
                 PopulateStatusDropDown();
                 PopulateProjectListViewHeaders();

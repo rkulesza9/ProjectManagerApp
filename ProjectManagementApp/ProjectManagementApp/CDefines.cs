@@ -8,7 +8,7 @@ namespace ProjectManagementApp
 {
     public class CDefines
     {
-        public const string JSON_FILE_NAME = "ProjectManagerConfig.json";
+        public static string JSON_FILE_NAME = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\ProjectManagerConfig.json";
 
         public const int TYPE_PROJECT = 0;
         public const int TYPE_RESOURCE = 1;
