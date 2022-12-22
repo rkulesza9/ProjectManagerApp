@@ -65,11 +65,20 @@ namespace ProjectManagementApp
             
         }
 
-        public CProject[] GetProjects(string name="", int status = -1)
+        public CProject[] GetProjects(string text="", int status = -1)
         {
+            string[] szTerms = text.ToLower().Split(' ');
+
             return m_lsProjects.Where((proj) =>
             {
-                return ( name.Equals("") || proj.m_szName.Contains(name) ) && 
+                bool bTextFound = true;
+                string szSearchArea = (proj.m_szName + proj.m_szShortNote + proj.m_szLongNote).ToLower();
+                foreach (string szTerm in szTerms)
+                {
+                    bTextFound = szSearchArea.Contains(szTerm);
+                    if (!bTextFound) break;
+                }
+                return (text.Equals("") || bTextFound ) && 
                        ( status == -1 || proj.m_nStatusID==status );
                 
             }).ToArray();

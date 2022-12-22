@@ -34,14 +34,14 @@ namespace ProjectManagementApp
             this.tbName = new System.Windows.Forms.TextBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.cbStatus = new System.Windows.Forms.ComboBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lvProjects = new System.Windows.Forms.ListView();
-            this.pgProject = new System.Windows.Forms.PropertyGrid();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnPin = new System.Windows.Forms.ToolStripButton();
             this.btnDeleteProject = new System.Windows.Forms.ToolStripButton();
             this.btnAddProject = new System.Windows.Forms.ToolStripButton();
+            this.pgProject = new System.Windows.Forms.PropertyGrid();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -69,14 +69,14 @@ namespace ProjectManagementApp
             this.lblName.AutoSize = true;
             this.lblName.Location = new System.Drawing.Point(3, 8);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(38, 13);
+            this.lblName.Size = new System.Drawing.Size(68, 13);
             this.lblName.TabIndex = 1;
-            this.lblName.Text = "Name:";
+            this.lblName.Text = "Search Text:";
             this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(47, 3);
+            this.tbName.Location = new System.Drawing.Point(77, 3);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(157, 20);
             this.tbName.TabIndex = 2;
@@ -85,7 +85,7 @@ namespace ProjectManagementApp
             // 
             this.lblStatus.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(210, 8);
+            this.lblStatus.Location = new System.Drawing.Point(240, 8);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(40, 13);
             this.lblStatus.TabIndex = 3;
@@ -95,10 +95,20 @@ namespace ProjectManagementApp
             // cbStatus
             // 
             this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(256, 3);
+            this.cbStatus.Location = new System.Drawing.Point(286, 3);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(121, 21);
             this.cbStatus.TabIndex = 4;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(413, 3);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 5;
+            this.btnRefresh.Text = "Search";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // splitContainer1
             // 
@@ -133,27 +143,6 @@ namespace ProjectManagementApp
             this.lvProjects.UseCompatibleStateImageBehavior = false;
             this.lvProjects.View = System.Windows.Forms.View.Details;
             this.lvProjects.SelectedIndexChanged += new System.EventHandler(this.lvProjects_SelectedIndexChanged);
-            // 
-            // pgProject
-            // 
-            this.pgProject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pgProject.HelpVisible = false;
-            this.pgProject.Location = new System.Drawing.Point(0, 0);
-            this.pgProject.Name = "pgProject";
-            this.pgProject.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.pgProject.Size = new System.Drawing.Size(800, 205);
-            this.pgProject.TabIndex = 0;
-            this.pgProject.ToolbarVisible = false;
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Location = new System.Drawing.Point(383, 3);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnRefresh.TabIndex = 5;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // toolStrip1
             // 
@@ -195,6 +184,17 @@ namespace ProjectManagementApp
             this.btnAddProject.Size = new System.Drawing.Size(89, 22);
             this.btnAddProject.Text = "Add Project";
             this.btnAddProject.Click += new System.EventHandler(this.btnAddProject_Click);
+            // 
+            // pgProject
+            // 
+            this.pgProject.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pgProject.HelpVisible = false;
+            this.pgProject.Location = new System.Drawing.Point(0, 0);
+            this.pgProject.Name = "pgProject";
+            this.pgProject.PropertySort = System.Windows.Forms.PropertySort.Categorized;
+            this.pgProject.Size = new System.Drawing.Size(800, 205);
+            this.pgProject.TabIndex = 0;
+            this.pgProject.ToolbarVisible = false;
             // 
             // fmProjectManager
             // 

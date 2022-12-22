@@ -16,18 +16,26 @@ namespace ProjectManagementApp
         private CProject m_pProject;
         public fmResources(CProject proj)
         {
-            InitializeComponent();
-            StartPosition = FormStartPosition.CenterScreen;
-            lvRes.ListViewItemSorter = new CListViewComparer(CDefines.UI_LISTVIEW_RESOURCES, 0, SortOrder.Ascending);
-            lvRes.ColumnClick += LvRes_ColumnClick;
-            lvRes.DoubleClick += LvRes_DoubleClick;
-            pgRes.PropertyValueChanged += PgRes_PropertyValueChanged;
+            try
+            {
+                InitializeComponent();
+                StartPosition = FormStartPosition.CenterScreen;
+                lvRes.ListViewItemSorter = new CListViewComparer(CDefines.UI_LISTVIEW_RESOURCES, 0, SortOrder.Ascending);
+                lvRes.ColumnClick += LvRes_ColumnClick;
+                lvRes.DoubleClick += LvRes_DoubleClick;
+                pgRes.PropertyValueChanged += PgRes_PropertyValueChanged;
 
-            m_pProject = proj;
-            Text = $"Resources - [{m_pProject.m_szName}]";
+                m_pProject = proj;
+                if (m_pProject != null) Text = $"Resources - [{m_pProject.m_szName}]";
 
-            PopulateResListViewHeaders();
-            PopulateResListView();
+                PopulateResListViewHeaders();
+                PopulateResListView();
+
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         #region "Events"

@@ -9,12 +9,22 @@ namespace ProjectManagementApp
         public CProject m_pProject;
         public fmLongNote(CProject proj)
         {
-            InitializeComponent();
-            StartPosition = FormStartPosition.CenterScreen;
+            try
+            {
+                InitializeComponent();
+                StartPosition = FormStartPosition.CenterScreen;
 
-            m_pProject = proj;
-            Text = $"Long Note - [{m_pProject.m_szName}]";
-            szText = m_pProject.m_szLongNote;
+                m_pProject = proj;
+                if (m_pProject != null)
+                {
+                    Text = $"Long Note - [{m_pProject.m_szName}]";
+                    szText = m_pProject.m_szLongNote;
+
+                }
+            }catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         public string szText

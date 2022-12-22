@@ -47,6 +47,7 @@ namespace ProjectManagementApp
         public const int PROJ_STATUS_ON_HOLD = 2;
         public const int PROJ_STATUS_INACTIVE = 3;
         public const int PROJ_STATUS_COMPLETED = 4;
+        public const int PROJ_STATUS_CANCELED = 5;
 
         public static string[] PROJ_STATUS_LABELS = new string[]
         {
@@ -54,7 +55,8 @@ namespace ProjectManagementApp
             "Active",
             "On Hold",
             "Inactive",
-            "Completed"
+            "Completed",
+            "Canceled"
         };
     }
 }
