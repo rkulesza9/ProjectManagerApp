@@ -7,10 +7,14 @@ namespace ProjectManagementApp
     public partial class fmLongNote : Form
     {
         public CProject m_pProject;
-        public fmLongNote()
+        public fmLongNote(CProject proj)
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
+
+            m_pProject = proj;
+            Text = $"Long Note - [{m_pProject.m_szName}]";
+            szText = m_pProject.m_szLongNote;
         }
 
         public string szText
@@ -23,36 +27,12 @@ namespace ProjectManagementApp
         {
             try
             {
-                if (m_pProject == null)
-                {
-                    DialogResult = DialogResult.OK;
-                } else
-                {
-                    m_pProject.szLongNote = szText;
-                }
-            }catch(Exception ex)
-            {
-                Debug.WriteLine(ex);
+                m_pProject.szLongNote = szText;
+                MessageBox.Show("Save Successful", "Save Successful");
             }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            try
+            catch(Exception ex)
             {
-                if (m_pProject == null)
-                {
-                    DialogResult = DialogResult.Cancel;
-                }
-                else
-                {
-                    m_pProject.szLongNote = szText;
-                    Close();
-                    Dispose();
-                }
-            }
-            catch (Exception ex)
-            {
+                MessageBox.Show("Save Failed", "Save Failed");
                 Debug.WriteLine(ex);
             }
         }

@@ -13,8 +13,8 @@ namespace ProjectManagementApp
 {
     public partial class fmResources : Form
     {
-        public string m_szProjectGuid;
-        public fmResources(string szProjectGuid)
+        private CProject m_pProject;
+        public fmResources(CProject proj)
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
@@ -23,7 +23,9 @@ namespace ProjectManagementApp
             lvRes.DoubleClick += LvRes_DoubleClick;
             pgRes.PropertyValueChanged += PgRes_PropertyValueChanged;
 
-            m_szProjectGuid = szProjectGuid;
+            m_pProject = proj;
+            Text = $"Resources - [{m_pProject.m_szName}]";
+
             PopulateResListViewHeaders();
             PopulateResListView();
         }
@@ -96,7 +98,7 @@ namespace ProjectManagementApp
             try
             {
                 CResource res = (CResource)CJsonDatabase.Instance.Fetch(CDefines.TYPE_RESOURCE, "");
-                res.nProjectID = CJsonDatabase.Instance.Fetch(CDefines.TYPE_PROJECT, m_szProjectGuid).m_nID;
+                res.nProjectID = CJsonDatabase.Instance.Fetch(CDefines.TYPE_PROJECT, m_pProject.m_szGuid).m_nID;
                 CListViewItem item = res.CreateListViewItem(CDefines.UI_LISTVIEW_RESOURCES);
 
                 lvRes.Items.Add(item);
@@ -180,7 +182,7 @@ namespace ProjectManagementApp
         #region "UI Functions"
         public void PopulateResListView(string search="")
         {
-            CResource[] resources = CJsonDatabase.Instance.GetResourcesFor(m_szProjectGuid, search);
+            CResource[] resources = CJsonDatabase.Instance.GetResourcesFor(m_pProject.m_szGuid, search);
 
             lvRes.BeginUpdate();
             lvRes.Items.Clear();

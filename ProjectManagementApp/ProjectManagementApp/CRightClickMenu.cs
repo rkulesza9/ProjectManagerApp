@@ -41,7 +41,7 @@ namespace ProjectManagementApp
         {
             try
             {
-                fmResources fm = new fmResources(m_pProject.m_szGuid);
+                fmResources fm = new fmResources(m_pProject);
                 fm.Show();
             }catch(Exception ex)
             {
@@ -53,8 +53,7 @@ namespace ProjectManagementApp
         {
             try
             {
-                fmLongNote fm = new fmLongNote();
-                fm.m_pProject = m_pProject;
+                fmLongNote fm = new fmLongNote(m_pProject);
                 fm.szText = m_pProject.m_szLongNote;
                 fm.Show();
 

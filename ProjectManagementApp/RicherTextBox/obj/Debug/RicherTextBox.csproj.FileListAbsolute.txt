@@ -8,3 +8,14 @@ C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\obj\Debug\RicherText
 C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.csproj.CoreCompileInputs.cache
 C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.dll
 C:\Users\rkulesza\Downloads\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.pdb
+C:\Rob\Projects\Applications\ProjectManagerApp\ProjectManagementApp\RicherTextBox\bin\Debug\RicherTextBox.dll
+C:\Rob\Projects\Applications\ProjectManagerApp\ProjectManagementApp\RicherTextBox\bin\Debug\RicherTextBox.pdb
+C:\Rob\Projects\Applications\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.csprojAssemblyReference.cache
+C:\Rob\Projects\Applications\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.FindForm.resources
+C:\Rob\Projects\Applications\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.Properties.Resources.resources
+C:\Rob\Projects\Applications\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.ReplaceForm.resources
+C:\Rob\Projects\Applications\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.RicherTextBox.resources
+C:\Rob\Projects\Applications\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.csproj.GenerateResource.cache
+C:\Rob\Projects\Applications\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.csproj.CoreCompileInputs.cache
+C:\Rob\Projects\Applications\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.dll
+C:\Rob\Projects\Applications\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.pdb
