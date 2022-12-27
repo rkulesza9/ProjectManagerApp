@@ -115,7 +115,7 @@ namespace ProjectManagementApp
             set
             {
                 m_dtLastUpdated = DateTime.Now;
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
             }
         }
@@ -134,7 +134,7 @@ namespace ProjectManagementApp
             set
             {
                 m_bPinned = value;
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
             }
         }

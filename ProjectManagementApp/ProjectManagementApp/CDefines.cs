@@ -8,7 +8,7 @@ namespace ProjectManagementApp
 {
     public class CDefines
     {
-        public static string JSON_FILE_NAME = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\ProjectManagerConfig.json";
+        public static readonly string JSON_DEFAULT_FILE_NAME = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\ProjectManagerConfig.json";
 
         public const int TYPE_PROJECT = 0;
         public const int TYPE_RESOURCE = 1;
@@ -49,7 +49,7 @@ namespace ProjectManagementApp
         public const int PROJ_STATUS_COMPLETED = 4;
         public const int PROJ_STATUS_CANCELED = 5;
 
-        public static string[] PROJ_STATUS_LABELS = new string[]
+        public static readonly string[] PROJ_STATUS_LABELS = new string[]
         {
             "New",
             "Active",
@@ -58,5 +58,7 @@ namespace ProjectManagementApp
             "Completed",
             "Canceled"
         };
+
+        public const string SETTINGS_LAST_OPENED_FILE = "szLastOpenedFile";
     }
 }

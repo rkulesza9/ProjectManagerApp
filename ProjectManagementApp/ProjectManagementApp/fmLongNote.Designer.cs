@@ -32,14 +32,18 @@ namespace ProjectManagementApp
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSave = new System.Windows.Forms.Button();
             this.tbLongNote = new RicherTextBox.RicherTextBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblLastSavedText = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblLastSavedDate = new System.Windows.Forms.ToolStripStatusLabel();
             this.flowLayoutPanel1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.btnSave);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 422);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 400);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(800, 28);
             this.flowLayoutPanel1.TabIndex = 4;
@@ -93,7 +97,7 @@ namespace ProjectManagementApp
             this.tbLongNote.SeparatorIndentAndBulletsVisible = true;
             this.tbLongNote.SeparatorInsertVisible = true;
             this.tbLongNote.SeparatorSaveLoadVisible = true;
-            this.tbLongNote.Size = new System.Drawing.Size(800, 422);
+            this.tbLongNote.Size = new System.Drawing.Size(800, 400);
             this.tbLongNote.TabIndex = 5;
             this.tbLongNote.ToolStripVisible = true;
             this.tbLongNote.UnderlineVisible = true;
@@ -102,6 +106,28 @@ namespace ProjectManagementApp
             this.tbLongNote.ZoomInVisible = true;
             this.tbLongNote.ZoomOutVisible = true;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblLastSavedText,
+            this.lblLastSavedDate});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.TabIndex = 6;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblLastSavedText
+            // 
+            this.lblLastSavedText.Name = "lblLastSavedText";
+            this.lblLastSavedText.Size = new System.Drawing.Size(65, 17);
+            this.lblLastSavedText.Text = "Last Saved:";
+            // 
+            // lblLastSavedDate
+            // 
+            this.lblLastSavedDate.Name = "lblLastSavedDate";
+            this.lblLastSavedDate.Size = new System.Drawing.Size(0, 17);
+            // 
             // fmLongNote
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -109,10 +135,14 @@ namespace ProjectManagementApp
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tbLongNote);
             this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.statusStrip1);
             this.Name = "fmLongNote";
             this.Text = "Long Note";
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -120,5 +150,8 @@ namespace ProjectManagementApp
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnSave;
         private RicherTextBox.RicherTextBox tbLongNote;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel lblLastSavedText;
+        private System.Windows.Forms.ToolStripStatusLabel lblLastSavedDate;
     }
 }

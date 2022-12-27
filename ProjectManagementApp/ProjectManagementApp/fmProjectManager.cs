@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,9 @@ namespace ProjectManagementApp
 {
     public partial class fmProjectManager : Form
     {
+        public static string m_szFile;
+        public static ArrayList m_pOpenForms;
+
         public fmProjectManager()
         {
             try
@@ -24,8 +28,19 @@ namespace ProjectManagementApp
                 lvProjects.ColumnClick += LvProjects_ColumnClick;
                 lvProjects.ContextMenuStrip = new CRightClickMenu();
                 pgProject.PropertyValueChanged += PgProject_PropertyValueChanged;
-                CJsonDatabase.Initialize(CDefines.JSON_FILE_NAME);
-                Text = $"Project Manager - [{CDefines.JSON_FILE_NAME}]";
+                lvProjects.DoubleClick += LvProjects_DoubleClick;
+
+                m_pOpenForms = new ArrayList();
+                string szFileName = CDefines.JSON_DEFAULT_FILE_NAME;
+                if (!Properties.Settings.Default[CDefines.SETTINGS_LAST_OPENED_FILE].Equals(""))
+                {
+                    szFileName = (string)Properties.Settings.Default[CDefines.SETTINGS_LAST_OPENED_FILE];
+                }
+
+                CJsonDatabase.Initialize(szFileName);
+                Text = $"Project Manager - [{szFileName}]";
+                Properties.Settings.Default[CDefines.SETTINGS_LAST_OPENED_FILE] = szFileName;
+                Properties.Settings.Default.Save();
 
                 PopulateStatusDropDown();
                 PopulateProjectListViewHeaders();
@@ -39,6 +54,30 @@ namespace ProjectManagementApp
         }
 
         #region "Events"
+        private void LvProjects_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvProjects.SelectedItems.Count == 0) return;
+                CListViewItem pItem = (CListViewItem)lvProjects.SelectedItems[0];
+                CProject proj = (CProject)pItem.Tag;
+
+                fmLongNote fm = new fmLongNote(proj);
+                fm.Show();
+
+                fmResources fm2 = new fmResources(proj);
+                fm2.Show();
+
+                Process.Start(proj.m_szProjectDir);
+
+                Process.Start(proj.m_szWrikeUrl);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
         private void PgProject_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             try
@@ -151,9 +190,123 @@ namespace ProjectManagementApp
 
                 lvProjects.Items.Remove(pSelItem);
                 CJsonDatabase.Instance.Remove(project.szGuid);
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
 
                 pgProject.SelectedObject = null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+        private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string szFileName = "";
+
+                SaveFileDialog dlg = new SaveFileDialog();
+                dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                dlg.Title = "Create New File";
+                dlg.DefaultExt = "json";
+                dlg.Filter = "json files (*.json)|*.json";
+                dlg.RestoreDirectory = true;
+
+                if(dlg.ShowDialog() == DialogResult.OK)
+                {
+                    szFileName = dlg.FileName;
+                } else
+                {
+                    return;
+                }
+
+                for (int x = m_pOpenForms.Count - 1; x >= 0; x--) ((Form)m_pOpenForms[x]).Close();
+
+                CJsonDatabase.Initialize(szFileName);
+                Text = $"Project Manager - [{szFileName}]";
+                Properties.Settings.Default[CDefines.SETTINGS_LAST_OPENED_FILE] = szFileName;
+                Properties.Settings.Default.Save();
+
+                PopulateStatusDropDown();
+                PopulateProjectListViewHeaders();
+                PopulateProjectListView();
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string szFileName = "";
+
+                OpenFileDialog dlg = new OpenFileDialog();
+                dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                dlg.Title = "Create New File";
+                dlg.DefaultExt = "json";
+                dlg.Filter = "json files (*.json)|*.json";
+                dlg.RestoreDirectory = true;
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    szFileName = dlg.FileName;
+                }
+                else
+                {
+                    return;
+                }
+
+                for (int x = m_pOpenForms.Count - 1; x >= 0; x--) ((Form)m_pOpenForms[x]).Close();
+
+                CJsonDatabase.Initialize(szFileName);
+                Text = $"Project Manager - [{szFileName}]";
+                Properties.Settings.Default[CDefines.SETTINGS_LAST_OPENED_FILE] = szFileName;
+                Properties.Settings.Default.Save();
+
+                PopulateStatusDropDown();
+                PopulateProjectListViewHeaders();
+                PopulateProjectListView();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string szFileName = "";
+
+                SaveFileDialog dlg = new SaveFileDialog();
+                dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                dlg.Title = "Create New File";
+                dlg.DefaultExt = "json";
+                dlg.Filter = "json files (*.json)|*.json";
+                dlg.RestoreDirectory = true;
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    szFileName = dlg.FileName;
+                }
+                else
+                {
+                    return;
+                }
+
+                for (int x = m_pOpenForms.Count - 1; x >= 0; x--) ((Form)m_pOpenForms[x]).Close();
+
+                CJsonDatabase.Instance.m_szFileName = szFileName;
+                Text = $"Project Manager - [{szFileName}]";
+                Properties.Settings.Default[CDefines.SETTINGS_LAST_OPENED_FILE] = szFileName;
+                Properties.Settings.Default.Save();
+
+                PopulateStatusDropDown();
+                PopulateProjectListViewHeaders();
+                PopulateProjectListView();
             }
             catch (Exception ex)
             {
@@ -173,6 +326,8 @@ namespace ProjectManagementApp
             {
                 lvProjects.Items.Add(proj.CreateListViewItem(CDefines.UI_LISTVIEW_PROJECTS));
             }
+
+            RefreshColumnWidths();
             lvProjects.EndUpdate();
         }
         private void PopulateStatusDropDown()
@@ -201,6 +356,8 @@ namespace ProjectManagementApp
                 hdr.Width = -2;
             }
         }
+
         #endregion
+
     }
 }

@@ -17,6 +17,7 @@ namespace ProjectManagementApp
         public string m_szDescription;
         public string m_szPath;
         public int m_nProjectID;
+        public bool m_bUniversal;
 
         public CResource() : base() { }
 
@@ -31,6 +32,7 @@ namespace ProjectManagementApp
                 m_szDescription = "This is a new resource.";
                 m_szPath = "C:\\";
                 m_nProjectID = -1;
+                m_bUniversal = false;
                 
             }catch(Exception ex)
             {
@@ -59,6 +61,7 @@ namespace ProjectManagementApp
 
                 // highlight pinned items
                 if (m_bPinned) item.BackColor = Color.Yellow;
+                else if (m_bUniversal) item.BackColor = Color.Beige;
                 else item.BackColor = Color.White;
             }
             catch(Exception ex)
@@ -79,9 +82,10 @@ namespace ProjectManagementApp
             set
             {
                 m_nProjectID = value;
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
-
+                
             }
         }
         [JsonIgnore]
@@ -107,7 +111,8 @@ namespace ProjectManagementApp
             set
             {
                 m_szName = value;
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
             }
         }
@@ -122,7 +127,8 @@ namespace ProjectManagementApp
             set
             {
                 m_szDescription = value;
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
             }
         }
@@ -137,10 +143,28 @@ namespace ProjectManagementApp
             set
             {
                 m_szPath = value;
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
             }
         }
+        [JsonIgnore]
+        [ReadOnly(false)]
+        [Browsable(true)]
+        [Category("Properties")]
+        [DisplayName("Is Universal Resource")]
+        public bool bUniversal
+        {
+            get { return m_bUniversal; }
+            set
+            {
+                m_bUniversal = value;
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
+                UpdateUI();
+            }
+        }
+        
         #endregion
     }
 }

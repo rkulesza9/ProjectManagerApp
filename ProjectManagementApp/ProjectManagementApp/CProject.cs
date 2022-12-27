@@ -82,7 +82,8 @@ namespace ProjectManagementApp
             set
             {
                 m_szName = value;
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
             }
         }
@@ -107,7 +108,8 @@ namespace ProjectManagementApp
                     }
                 }
 
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
             }
         }
@@ -123,7 +125,8 @@ namespace ProjectManagementApp
             set
             {
                 m_dtLastWorkedOn = value;
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
             }
         }
@@ -139,7 +142,8 @@ namespace ProjectManagementApp
             set
             {
                 m_szProjectDir = value;
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
             }
         }
@@ -155,7 +159,8 @@ namespace ProjectManagementApp
             set
             {
                 m_szWrikeUrl = value;
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
             }
         }
@@ -171,7 +176,8 @@ namespace ProjectManagementApp
             set
             {
                 m_szShortNote = value;
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
             }
         }
@@ -189,7 +195,8 @@ namespace ProjectManagementApp
             set
             {
                 m_szLongNote = value;
-                CJsonDatabase.Instance.Save(CDefines.JSON_FILE_NAME);
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
             }
         }

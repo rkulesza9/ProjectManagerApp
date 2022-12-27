@@ -15,6 +15,8 @@ namespace ProjectManagementApp
         // json ignore
         [JsonIgnore]
         public Hashtable m_pData;
+        [JsonIgnore]
+        public string m_szFileName;
 
         //json friendly
         public List<CProject> m_lsProjects;
@@ -31,6 +33,7 @@ namespace ProjectManagementApp
             if(m_pData == null) m_pData = new Hashtable();
             if(m_lsProjects == null) m_lsProjects = new List<CProject>();
             if (m_lsResources == null) m_lsResources = new List<CResource>();
+            if (m_szFileName == null) m_szFileName = "";
         }
 
         public void PopulateDataTable()
@@ -88,7 +91,8 @@ namespace ProjectManagementApp
             return m_lsResources.Where((res) =>
             {
                 CProject proj = (CProject)Fetch(CDefines.TYPE_PROJECT, szProjectGuid);
-                return (res.m_nProjectID == proj.m_nID) && ((res.m_szName.Contains(search)) || (res.m_szDescription.Contains(search)));
+                return ((res.m_nProjectID == proj.m_nID) || (res.m_bUniversal)) && 
+                       ((res.m_szName.Contains(search)) || (res.m_szDescription.Contains(search)));
             }).ToArray();
         }
 
@@ -169,6 +173,7 @@ namespace ProjectManagementApp
                     Instance = new CJsonDatabase();
                     Instance.PopulateDataTable();
                 }
+                Instance.m_szFileName = szFileName;
 
             }
             catch(Exception ex)
