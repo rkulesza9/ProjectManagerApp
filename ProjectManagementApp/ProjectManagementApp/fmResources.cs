@@ -55,8 +55,18 @@ namespace ProjectManagementApp
                 CListViewItem pSelItem = (CListViewItem)lvRes.SelectedItems[0];
                 CResource pRes = (CResource)pSelItem.Tag;
 
-                Process.Start(pRes.m_szPath);
+                // if its an exec file, process so it so that it will execute...
+                if (pRes.m_szPath.EndsWith(".exe"))
+                {
+                    string szExe = $"/C \"{pRes.m_szPath}\"";
+                    string szCmd = "CMD.exe";
+                    Process.Start(szCmd, szExe);
 
+                } else
+                {
+                    Process.Start(pRes.m_szPath);
+
+                }
             }
             catch(Exception ex)
             {

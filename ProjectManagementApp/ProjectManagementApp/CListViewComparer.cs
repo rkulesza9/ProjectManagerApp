@@ -46,7 +46,7 @@ namespace ProjectManagementApp
                     xRes = (CResource)xData;
                     yRes = (CResource)yData;
                     if (m_nColumn == 0) return nOrder * xRes.m_szName.CompareTo(yRes.m_szName);
-                    if (m_nColumn == 1) return nOrder * yRes.m_szDescription.CompareTo(yRes.m_szDescription);
+                    if (m_nColumn == 1) return nOrder * xRes.m_szDescription.CompareTo(yRes.m_szDescription);
                     break;
                 default:
                     break;

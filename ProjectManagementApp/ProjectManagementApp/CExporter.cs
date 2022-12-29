@@ -83,9 +83,7 @@ namespace ProjectManagementApp
             Range rngData = shtProj.Range[$"{col}3", $"{(char)(col + 5)}3"];
             Range rngTitle2 = shtProj.Range[$"{col}5", $"{col}5"];
             Range rngHeaders2 = shtProj.Range[$"{col}6", $"{(char)(col + 2)}6"];
-            Range rngTitle3 = shtProj.Range[$"{col}7", $"{col}7"];
-            Range rngTitle4;
-            Range rngNotes;
+            Range rngTitle3;
 
             rngTitle.Value2 = "Project Details";
             rngTitle2.Value2 = "Project Resources";
@@ -99,7 +97,7 @@ namespace ProjectManagementApp
                 shtProj.Range[$"{col}{x}", $"{(char)(col+2)}{x}"].Value2 = new string[] { data2[x-7, 0], data2[x-7,1], data2[x - 7,2] };
             }
 
-            rngTitle4 = shtProj.Range[$"{col}{x + 1}", $"{col}{x + 1}"];
+            rngTitle3 = shtProj.Range[$"{col}{x + 1}", $"{col}{x + 1}"];
 
             for(int x2 = x+1; x2 < szNoteLines.Length+x+1; x2++)
             {
@@ -108,9 +106,9 @@ namespace ProjectManagementApp
                 rng.Value = szNoteLines[x2 - (x + 1)];
             }
 
-            rngTitle4.Value = "Project Notes";
+            rngTitle3.Value = "Project Notes";
 
-            Range[] boldRanges = new Range[] { rngTitle, rngTitle2, rngTitle3, rngTitle4, rngHeaders, rngHeaders2 };
+            Range[] boldRanges = new Range[] { rngTitle, rngTitle2, rngTitle3, rngHeaders, rngHeaders2 };
             foreach (Range rng in boldRanges) rng.Font.Bold = true;
 
             shtProj.UsedRange.Columns.AutoFit();
