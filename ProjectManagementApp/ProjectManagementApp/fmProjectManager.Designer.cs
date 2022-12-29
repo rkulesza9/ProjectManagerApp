@@ -50,6 +50,11 @@ namespace ProjectManagementApp
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportAllToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblLoadStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pbLoadingBar = new System.Windows.Forms.ToolStripProgressBar();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -57,6 +62,7 @@ namespace ProjectManagementApp
             this.splitContainer1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel2
@@ -134,6 +140,7 @@ namespace ProjectManagementApp
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pgProject);
+            this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
             this.splitContainer1.Size = new System.Drawing.Size(800, 398);
             this.splitContainer1.SplitterDistance = 200;
             this.splitContainer1.TabIndex = 6;
@@ -201,7 +208,7 @@ namespace ProjectManagementApp
             this.pgProject.Location = new System.Drawing.Point(0, 0);
             this.pgProject.Name = "pgProject";
             this.pgProject.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.pgProject.Size = new System.Drawing.Size(800, 194);
+            this.pgProject.Size = new System.Drawing.Size(800, 172);
             this.pgProject.TabIndex = 0;
             this.pgProject.ToolbarVisible = false;
             // 
@@ -231,26 +238,29 @@ namespace ProjectManagementApp
             // newFileToolStripMenuItem
             // 
             this.newFileToolStripMenuItem.Name = "newFileToolStripMenuItem";
-            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.newFileToolStripMenuItem.Text = "New File";
             this.newFileToolStripMenuItem.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
             // 
             // openFileToolStripMenuItem
             // 
             this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
-            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.openFileToolStripMenuItem.Text = "Open File";
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.saveAsToolStripMenuItem.Text = "Save As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToExcelToolStripMenuItem,
+            this.exportAllToExcelToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.editToolStripMenuItem.Text = "Export";
@@ -267,6 +277,44 @@ namespace ProjectManagementApp
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
+            // exportToExcelToolStripMenuItem
+            // 
+            this.exportToExcelToolStripMenuItem.Name = "exportToExcelToolStripMenuItem";
+            this.exportToExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToExcelToolStripMenuItem.Text = "Export to Excel";
+            this.exportToExcelToolStripMenuItem.Click += new System.EventHandler(this.exportToExcelToolStripMenuItem_Click);
+            // 
+            // exportAllToExcelToolStripMenuItem
+            // 
+            this.exportAllToExcelToolStripMenuItem.Name = "exportAllToExcelToolStripMenuItem";
+            this.exportAllToExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportAllToExcelToolStripMenuItem.Text = "Export All To Excel";
+            this.exportAllToExcelToolStripMenuItem.Click += new System.EventHandler(this.exportAllToExcelToolStripMenuItem_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblLoadStatus,
+            this.pbLoadingBar});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 172);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblLoadStatus
+            // 
+            this.lblLoadStatus.Name = "lblLoadStatus";
+            this.lblLoadStatus.Size = new System.Drawing.Size(652, 17);
+            this.lblLoadStatus.Spring = true;
+            this.lblLoadStatus.Text = "Done";
+            this.lblLoadStatus.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // pbLoadingBar
+            // 
+            this.pbLoadingBar.Name = "pbLoadingBar";
+            this.pbLoadingBar.Size = new System.Drawing.Size(100, 16);
+            // 
             // fmProjectManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -282,12 +330,15 @@ namespace ProjectManagementApp
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,6 +367,11 @@ namespace ProjectManagementApp
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportToExcelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportAllToExcelToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel lblLoadStatus;
+        private System.Windows.Forms.ToolStripProgressBar pbLoadingBar;
     }
 }
 

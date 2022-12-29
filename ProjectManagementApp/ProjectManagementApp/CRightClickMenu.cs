@@ -24,17 +24,34 @@ namespace ProjectManagementApp
         private void Initialize(CProject proj)
         {
             m_pProject = proj;
+            string m_szSCText = proj == null ? "Source Control" : CDefines.PROJ_SRCCTRL_LABELS[m_pProject.m_nSourceControlID];
 
             Items.Add("View Long Note");
             Items.Add("View Resources");
             Items.Add("Open Project Directory");
             Items.Add("Open Wrike");
+            Items.Add($"Open {m_szSCText}");
 
             int x = 0;
             Items[x++].Click += LongNote_Click;
             Items[x++].Click += Resources_Click;
             Items[x++].Click += ProjectDir_Click;
             Items[x++].Click += Wrike_Click;
+            Items[x++].Click += SourceControl_Click;
+        }
+
+        private void SourceControl_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("CMD.exe", String.Format(CDefines.PROJ_SRCCTRL_CMDS[m_pProject.m_nSourceControlID], m_pProject.m_szSourceControlPath));
+
+                
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         private void Resources_Click(object sender, EventArgs e)

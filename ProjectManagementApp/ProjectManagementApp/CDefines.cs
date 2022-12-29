@@ -59,6 +59,25 @@ namespace ProjectManagementApp
             "Canceled"
         };
 
+        public const int PROJ_SRCCTRL_GIT = 0;
+        public const int PROJ_SRCCTRL_SOURCESAFE = 1;
+
+        public static readonly string[] PROJ_SRCCTRL_LABELS = new string[]
+        {
+            "Git",
+            "Source Safe"
+        };
+
+        public static readonly string[] PROJ_SRCCTRL_CMDS = new string[]
+        {
+            "/K \"cd {0} && git status\"",
+            ""
+        };
+
+        
+
         public const string SETTINGS_LAST_OPENED_FILE = "szLastOpenedFile";
+
+        
     }
 }

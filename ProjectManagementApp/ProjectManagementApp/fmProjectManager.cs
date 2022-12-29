@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -313,6 +314,116 @@ namespace ProjectManagementApp
                 Debug.WriteLine(ex);
             }
         }
+        private void exportToExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvProjects.SelectedItems.Count == 0)
+                {
+                    MessageBox.Show("Please Select A Project First.");
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+                saveFileDialog1.Title = "Export Project To Excel";
+                saveFileDialog1.DefaultExt = "xlsx";
+                saveFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+                saveFileDialog1.RestoreDirectory = true;
+
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+
+                    CProject proj = (CProject)lvProjects.SelectedItems[0].Tag;
+                    string szProjNotes = proj.szLongNote;
+                    string szFile = saveFileDialog1.FileName;
+
+                    Cursor = Cursors.WaitCursor;
+                    lblLoadStatus.Text = "Loading...";
+                    pbLoadingBar.Value = 0;
+                    pbLoadingBar.Maximum = 1;
+
+                    BackgroundWorker wkr = new BackgroundWorker();
+                    wkr.DoWork += (sender2, e2) =>
+                    {
+                        CExporter.ToExcel(proj, szProjNotes, szFile);
+                    };
+
+                    wkr.RunWorkerCompleted += (sender2, e2) =>
+                    {
+                        Invoke(new MethodInvoker(() =>
+                        {
+                            Cursor = Cursors.Default;
+                            lblLoadStatus.Text = "Done";
+                            pbLoadingBar.Value = 0;
+                        }));
+                    };
+
+                    wkr.RunWorkerAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        private void exportAllToExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FolderBrowserDialog ofd = new FolderBrowserDialog();
+                ofd.Description = "Select Export Destination";
+
+                if(ofd.ShowDialog() == DialogResult.OK)
+                {
+                    Cursor= Cursors.WaitCursor;
+                    lblLoadStatus.Text = "Loading...";
+                    pbLoadingBar.Value = 0;
+                    pbLoadingBar.Maximum = lvProjects.Items.Count;
+
+                    CProject[] projects = new CProject[lvProjects.Items.Count];
+                    for(int x = 0; x < projects.Length; x++)
+                    {
+                        projects[x] = (CProject) lvProjects.Items[x].Tag;
+                    }
+
+                    BackgroundWorker wkr = new BackgroundWorker();
+                    wkr.DoWork += (sender2, e2) =>
+                    {
+                        string szPath = ofd.SelectedPath;
+                        foreach (CProject proj in projects)
+                        {
+                            Invoke(new MethodInvoker(() => 
+                            {
+                                lblLoadStatus.Text = $"Exporting \"{proj.m_szName}\"";
+                                pbLoadingBar.Increment(1);
+                            }));
+
+                            string szFile = $"{szPath}\\{proj.m_szName}.xlsx";
+                            CExporter.ToExcel(proj, proj.m_szLongNote, szFile);
+                        }
+                    };
+
+                    wkr.RunWorkerCompleted += (sender2, e2) =>
+                    {
+                        Invoke(new MethodInvoker(() =>
+                        {
+                            Cursor = Cursors.Default;
+                            lblLoadStatus.Text = "Done";
+                            pbLoadingBar.Value=0;
+                        }));
+                    };
+
+                    wkr.RunWorkerAsync();
+
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
         #endregion
 
         #region "UI Functions"
@@ -359,5 +470,6 @@ namespace ProjectManagementApp
 
         #endregion
 
+ 
     }
 }
