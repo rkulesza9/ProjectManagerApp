@@ -44,7 +44,23 @@ namespace ProjectManagementApp
         {
             try
             {
-                Process.Start("CMD.exe", String.Format(CDefines.PROJ_SRCCTRL_CMDS[m_pProject.m_nSourceControlID], m_pProject.m_szSourceControlPath));
+                string szPath;
+                string szDrive;
+
+                switch (m_pProject.m_nSourceControlID)
+                {
+                    case CDefines.PROJ_SRCCTRL_GIT:
+                        szPath = m_pProject.m_szSourceControlPath;
+                        szDrive = $"{szPath.Substring(0, szPath.IndexOf(':') + 1)} && ";
+                        Process.Start("CMD.exe", String.Format(CDefines.PROJ_SRCCTRL_CMDS[m_pProject.m_nSourceControlID], szDrive, szPath));
+
+                        break;
+                    case CDefines.PROJ_SRCCTRL_SOURCESAFE:
+
+                        break;
+                    default:
+                        break;
+                }
 
                 
             }

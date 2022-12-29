@@ -70,7 +70,7 @@ namespace ProjectManagementApp
 
         public static readonly string[] PROJ_SRCCTRL_CMDS = new string[]
         {
-            "/K \"cd {0} && git status\"",
+            "/K \"{0} cd {1} && git status\"",
             ""
         };
 
