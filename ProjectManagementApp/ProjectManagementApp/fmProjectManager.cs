@@ -55,6 +55,20 @@ namespace ProjectManagementApp
         }
 
         #region "Events"
+        private void backupDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string szDate = DateTime.Now.ToShortDateString().Replace("/", "");
+                string szBackupPath = $"{CJsonDatabase.Instance.m_szFileName}-{szDate}.bak";
+
+                CJsonDatabase.Instance.Save(szBackupPath);
+                MessageBox.Show($"Backup file generated: \"{szBackupPath}\"", "Backup Created");
+            }catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
         private void LvProjects_DoubleClick(object sender, EventArgs e)
         {
             try
@@ -468,8 +482,8 @@ namespace ProjectManagementApp
             }
         }
 
+
         #endregion
 
- 
     }
 }

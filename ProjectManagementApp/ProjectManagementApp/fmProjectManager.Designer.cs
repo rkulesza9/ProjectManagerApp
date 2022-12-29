@@ -42,27 +42,28 @@ namespace ProjectManagementApp
             this.btnDeleteProject = new System.Windows.Forms.ToolStripButton();
             this.btnAddProject = new System.Windows.Forms.ToolStripButton();
             this.pgProject = new System.Windows.Forms.PropertyGrid();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblLoadStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pbLoadingBar = new System.Windows.Forms.ToolStripProgressBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.filesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportAllToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.lblLoadStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pbLoadingBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backupDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel2
@@ -212,6 +213,30 @@ namespace ProjectManagementApp
             this.pgProject.TabIndex = 0;
             this.pgProject.ToolbarVisible = false;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblLoadStatus,
+            this.pbLoadingBar});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 172);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblLoadStatus
+            // 
+            this.lblLoadStatus.Name = "lblLoadStatus";
+            this.lblLoadStatus.Size = new System.Drawing.Size(683, 17);
+            this.lblLoadStatus.Spring = true;
+            this.lblLoadStatus.Text = "Done";
+            this.lblLoadStatus.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // pbLoadingBar
+            // 
+            this.pbLoadingBar.Name = "pbLoadingBar";
+            this.pbLoadingBar.Size = new System.Drawing.Size(100, 16);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -265,18 +290,6 @@ namespace ProjectManagementApp
             this.editToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.editToolStripMenuItem.Text = "Export";
             // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
             // exportToExcelToolStripMenuItem
             // 
             this.exportToExcelToolStripMenuItem.Name = "exportToExcelToolStripMenuItem";
@@ -291,29 +304,26 @@ namespace ProjectManagementApp
             this.exportAllToExcelToolStripMenuItem.Text = "Export All To Excel";
             this.exportAllToExcelToolStripMenuItem.Click += new System.EventHandler(this.exportAllToExcelToolStripMenuItem_Click);
             // 
-            // statusStrip1
+            // viewToolStripMenuItem
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblLoadStatus,
-            this.pbLoadingBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 172);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
             // 
-            // lblLoadStatus
+            // toolsToolStripMenuItem
             // 
-            this.lblLoadStatus.Name = "lblLoadStatus";
-            this.lblLoadStatus.Size = new System.Drawing.Size(652, 17);
-            this.lblLoadStatus.Spring = true;
-            this.lblLoadStatus.Text = "Done";
-            this.lblLoadStatus.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.backupDatabaseToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
             // 
-            // pbLoadingBar
+            // backupDatabaseToolStripMenuItem
             // 
-            this.pbLoadingBar.Name = "pbLoadingBar";
-            this.pbLoadingBar.Size = new System.Drawing.Size(100, 16);
+            this.backupDatabaseToolStripMenuItem.Name = "backupDatabaseToolStripMenuItem";
+            this.backupDatabaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.backupDatabaseToolStripMenuItem.Text = "Backup Database";
+            this.backupDatabaseToolStripMenuItem.Click += new System.EventHandler(this.backupDatabaseToolStripMenuItem_Click);
             // 
             // fmProjectManager
             // 
@@ -335,10 +345,10 @@ namespace ProjectManagementApp
             this.splitContainer1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -372,6 +382,7 @@ namespace ProjectManagementApp
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblLoadStatus;
         private System.Windows.Forms.ToolStripProgressBar pbLoadingBar;
+        private System.Windows.Forms.ToolStripMenuItem backupDatabaseToolStripMenuItem;
     }
 }
 
