@@ -21,9 +21,11 @@ namespace ProjectManagementApp
         public string m_szWrikeUrl;
         public string m_szShortNote;
         public string m_szLongNote;
-        public int m_nSourceControlID;
         public string m_szSourceControlPath;
-        
+        public int m_nSourceControlID;
+        public string m_szMainDeveloper;
+        public string m_szMainContact;
+        public int m_nProjTypeID;
         
         public CProject() : base()
         {
@@ -43,9 +45,12 @@ namespace ProjectManagementApp
                 m_szProjectDir = "C:\\";
                 m_szWrikeUrl = "https://wrike.com";
                 m_szShortNote = "";
-                m_szLongNote = $"Project Created On {m_dtLastWorkedOn}.";
-                m_nSourceControlID = CDefines.PROJ_SRCCTRL_GIT;
+                m_szLongNote = "";
                 m_szSourceControlPath = "";
+                m_nSourceControlID = CDefines.PROJ_SRCCTRL_GIT;
+                m_szMainContact = "N/A";
+                m_szMainDeveloper = "N/A";
+                m_nProjTypeID = CDefines.PROJ_TYPE_DESKTOP;
             }
             catch(Exception ex)
             {
@@ -62,9 +67,12 @@ namespace ProjectManagementApp
             {
                 case CDefines.UI_LISTVIEW_PROJECTS:
                     item.Text = m_szName;
+                    item.SubItems.Add(szProjType);
                     item.SubItems.Add(szStatus);
                     item.SubItems.Add(m_dtLastWorkedOn.ToShortDateString());
                     item.SubItems.Add(m_szShortNote);
+                    //item.SubItems.Add(m_szMainDeveloper);
+                    //item.SubItems.Add(m_szMainContact);
                     break;
                 default:
                     break;
@@ -87,6 +95,31 @@ namespace ProjectManagementApp
             set
             {
                 m_szName = value;
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
+                UpdateUI();
+            }
+        }
+        [JsonIgnore]
+        [ReadOnly(false)]
+        [Browsable(true)]
+        [TypeConverter(typeof(CTypeConverters.CProjectTypeConverter))]
+        [Category("Properties")]
+        [DisplayName("Type")]
+        public string szProjType
+        {
+            get { return CDefines.PROJ_TYPE_LABELS[m_nProjTypeID]; }
+            set
+            {
+                for (int x = 0; x < CDefines.PROJ_TYPE_LABELS.Length; x++)
+                {
+                    if (CDefines.PROJ_TYPE_LABELS[x].Equals(value))
+                    {
+                        m_nProjTypeID = x;
+                        break;
+                    }
+                }
+
                 m_dtLastUpdated = DateTime.Now;
                 CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
@@ -155,7 +188,7 @@ namespace ProjectManagementApp
 
         [JsonIgnore]
         [ReadOnly(false)]
-        [Browsable(true)]
+        [Browsable(false)]
         [Category("Properties")]
         [DisplayName("Wrike Url")]
         public string szWrikeUrl
@@ -208,23 +241,28 @@ namespace ProjectManagementApp
         [JsonIgnore]
         [ReadOnly(false)]
         [Browsable(true)]
-        [TypeConverter(typeof(CTypeConverters.CProjectSourceControlConverter))]
         [Category("Properties")]
         [DisplayName("Source Control")]
+        [TypeConverter(typeof(CTypeConverters.CProjectSourceControlConverter))]
         public string szSourceControl
         {
             get { return CDefines.PROJ_SRCCTRL_LABELS[m_nSourceControlID]; }
             set
             {
-                for (int x = 0; x < CDefines.PROJ_SRCCTRL_LABELS.Length; x++)
-                {
-                    if (CDefines.PROJ_SRCCTRL_LABELS[x].Equals(value))
-                    {
-                        m_nSourceControlID = x;
-                        break;
-                    }
-                }
-
+                for(int x = 0; x < CDefines.PROJ_SRCCTRL_LABELS.Length; x++) if(CDefines.PROJ_SRCCTRL_LABELS[x].Equals(value)) m_nSourceControlID=x;
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
+                UpdateUI();
+            }
+        }
+        [JsonIgnore]
+        [Browsable(false)]
+        public int nSourceControlID
+        {
+            get { return m_nSourceControlID;  }
+            set
+            {
+                m_nSourceControlID = value;
                 m_dtLastUpdated = DateTime.Now;
                 CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();
@@ -238,11 +276,46 @@ namespace ProjectManagementApp
         [DisplayName("Source Control Path")]
         public string szSourceControlPath
         {
-            get { return m_szSourceControlPath; }
+            get
+            {
+                return m_szSourceControlPath;
+            }
             set
             {
                 m_szSourceControlPath = value;
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
+                UpdateUI();
+            }
+        }
+        [JsonIgnore]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [Category("Properties")]
+        [DisplayName("Main Developer")]
+        public string szMainDeveloper
+        {
+            get { return m_szMainDeveloper; }
+            set
+            {
+                m_szMainDeveloper = value;
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
+                UpdateUI();
 
+            }
+        }
+        [JsonIgnore]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [Category("Properties")]
+        [DisplayName("Main Contact")]
+        public string szMainContact
+        {
+            get { return m_szMainContact; }
+            set
+            {
+                m_szMainContact = value;
                 m_dtLastUpdated = DateTime.Now;
                 CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();

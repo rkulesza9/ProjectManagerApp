@@ -76,5 +76,6 @@ namespace ProjectManagementApp
 
         public static Mutex m_pMutex;
         public const string m_szMutex = "ProjectManagerApp";
+        //public const string m_szMutex = "ProjectManagerApp-Dev";
     }
 }

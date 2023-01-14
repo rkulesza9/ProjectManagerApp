@@ -29,6 +29,7 @@ namespace ProjectManagementApp
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fmLongNote));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSave = new System.Windows.Forms.Button();
             this.tbLongNote = new RicherTextBox.RicherTextBox();
@@ -136,6 +137,7 @@ namespace ProjectManagementApp
             this.Controls.Add(this.tbLongNote);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "fmLongNote";
             this.Text = "Long Note";
             this.flowLayoutPanel1.ResumeLayout(false);

@@ -29,6 +29,7 @@ namespace ProjectManagementApp
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fmResources));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnPin = new System.Windows.Forms.ToolStripButton();
             this.btnDeleteRes = new System.Windows.Forms.ToolStripButton();
@@ -193,6 +194,7 @@ namespace ProjectManagementApp
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.flowLayoutPanel2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "fmResources";
             this.Text = "fmResources";
             this.toolStrip1.ResumeLayout(false);

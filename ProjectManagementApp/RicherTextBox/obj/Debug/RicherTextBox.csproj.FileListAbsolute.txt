@@ -30,3 +30,14 @@ E:\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextB
 E:\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.csproj.GenerateResource.cache
 E:\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.csproj.CoreCompileInputs.cache
 E:\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.csproj.AssemblyReference.cache
+E:\NextCloud\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\bin\Debug\RicherTextBox.dll
+E:\NextCloud\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\bin\Debug\RicherTextBox.pdb
+E:\NextCloud\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.csproj.AssemblyReference.cache
+E:\NextCloud\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.FindForm.resources
+E:\NextCloud\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.Properties.Resources.resources
+E:\NextCloud\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.ReplaceForm.resources
+E:\NextCloud\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.RicherTextBox.resources
+E:\NextCloud\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.csproj.GenerateResource.cache
+E:\NextCloud\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.csproj.CoreCompileInputs.cache
+E:\NextCloud\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.dll
+E:\NextCloud\Projects\ProjectManagerApp\ProjectManagerApp\ProjectManagementApp\RicherTextBox\obj\Debug\RicherTextBox.pdb

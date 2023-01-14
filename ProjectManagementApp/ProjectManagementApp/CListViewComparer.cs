@@ -38,9 +38,12 @@ namespace ProjectManagementApp
                     xProj = (CProject)xData;
                     yProj = (CProject)yData;
                     if (m_nColumn == 0) return nOrder * xProj.m_szName.CompareTo(yProj.m_szName);
-                    if (m_nColumn == 1) return nOrder * xProj.szStatus.CompareTo(yProj.szStatus);
-                    if (m_nColumn == 2) return nOrder * xProj.m_dtLastWorkedOn.CompareTo(yProj.m_dtLastWorkedOn);
-                    if (m_nColumn == 3) return nOrder * xProj.m_szShortNote.CompareTo(yProj.m_szShortNote);
+                    if (m_nColumn == 1) return nOrder * xProj.szProjType.CompareTo(yProj.szProjType);
+                    if (m_nColumn == 2) return nOrder * xProj.szStatus.CompareTo(yProj.szStatus);
+                    if (m_nColumn == 3) return nOrder * xProj.m_dtLastWorkedOn.CompareTo(yProj.m_dtLastWorkedOn);
+                    if (m_nColumn == 4) return nOrder * xProj.m_szShortNote.CompareTo(yProj.m_szShortNote);
+                    //if (m_nColumn == 5) return nOrder * xProj.m_szMainDeveloper.CompareTo(yProj.m_szMainDeveloper);
+                    //if (m_nColumn == 6) return nOrder * xProj.m_szMainContact.CompareTo(yProj.m_szMainContact);
                     break;
                 case CDefines.UI_LISTVIEW_RESOURCES:
                     xRes = (CResource)xData;

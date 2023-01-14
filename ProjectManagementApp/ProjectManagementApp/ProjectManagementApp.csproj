@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>16</ApplicationRevision>
+    <ApplicationRevision>24</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>properties.ico</ApplicationIcon>
+    <ApplicationIcon>project.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>D6B99B9184028A64140AE4664533BA70AD155252</ManifestCertificateThumbprint>
@@ -103,6 +103,7 @@
     <Compile Include="CExporter.cs" />
     <Compile Include="CJsonDatabase.cs" />
     <Compile Include="CListViewComparer.cs" />
+    <Compile Include="CNotebookPage.cs" />
     <Compile Include="CProject.cs" />
     <Compile Include="CResource.cs" />
     <Compile Include="CRightClickMenu.cs">
@@ -114,6 +115,12 @@
     </Compile>
     <Compile Include="fmLongNote.Designer.cs">
       <DependentUpon>fmLongNote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmNotebook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmNotebook.Designer.cs">
+      <DependentUpon>fmNotebook.cs</DependentUpon>
     </Compile>
     <Compile Include="fmProjectManager.cs">
       <SubType>Form</SubType>
@@ -131,6 +138,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fmLongNote.resx">
       <DependentUpon>fmLongNote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmNotebook.resx">
+      <DependentUpon>fmNotebook.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fmProjectManager.resx">
       <DependentUpon>fmProjectManager.cs</DependentUpon>
@@ -272,7 +282,10 @@
     <None Include="Resources\page-num.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="project.ico" />
     <Content Include="properties.ico" />
+    <None Include="Resources\project.ico" />
+    <None Include="Resources\project.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

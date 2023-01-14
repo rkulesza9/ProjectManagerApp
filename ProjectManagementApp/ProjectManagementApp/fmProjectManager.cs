@@ -43,6 +43,7 @@ namespace ProjectManagementApp
                 Properties.Settings.Default[CDefines.SETTINGS_LAST_OPENED_FILE] = szFileName;
                 Properties.Settings.Default.Save();
 
+                PopulateTypeDropdown();
                 PopulateStatusDropDown();
                 PopulateProjectListViewHeaders();
                 PopulateProjectListView();
@@ -55,20 +56,6 @@ namespace ProjectManagementApp
         }
 
         #region "Events"
-        private void backupDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string szDate = DateTime.Now.ToShortDateString().Replace("/", "");
-                string szBackupPath = $"{CJsonDatabase.Instance.m_szFileName}-{szDate}.bak";
-
-                CJsonDatabase.Instance.Save(szBackupPath);
-                MessageBox.Show($"Backup file generated: \"{szBackupPath}\"", "Backup Created");
-            }catch(Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-        }
         private void LvProjects_DoubleClick(object sender, EventArgs e)
         {
             try
@@ -125,8 +112,9 @@ namespace ProjectManagementApp
             {
                 string szName = tbName.Text;
                 int nStatusID = cbStatus.SelectedIndex - 1;
+                int nTypeID = cbType.SelectedIndex - 1;
 
-                PopulateProjectListView(szName, nStatusID);
+                PopulateProjectListView(szName, nTypeID, nStatusID);
             }catch(Exception ex)
             {
                 Debug.WriteLine(ex);
@@ -315,6 +303,7 @@ namespace ProjectManagementApp
                 for (int x = m_pOpenForms.Count - 1; x >= 0; x--) ((Form)m_pOpenForms[x]).Close();
 
                 CJsonDatabase.Instance.m_szFileName = szFileName;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 Text = $"Project Manager - [{szFileName}]";
                 Properties.Settings.Default[CDefines.SETTINGS_LAST_OPENED_FILE] = szFileName;
                 Properties.Settings.Default.Save();
@@ -414,7 +403,10 @@ namespace ProjectManagementApp
                                 pbLoadingBar.Increment(1);
                             }));
 
-                            string szFile = $"{szPath}\\{proj.m_szName}.xlsx";
+                            int nFileNameLen = proj.m_szName.Length + 5 < 31 ? proj.m_szName.Length : 31-5;
+                            string szFileName = $"{proj.m_szName.Substring(0, nFileNameLen)}.xlsx";
+                            foreach (string c in new string[] { ":", "\\", "/", "?", "*", "[", "]" }) szFileName = szFileName.Replace(c, "");
+                            string szFile = $"{szPath}\\{szFileName}";
                             CExporter.ToExcel(proj, proj.m_szLongNote, szFile);
                         }
                     };
@@ -441,9 +433,9 @@ namespace ProjectManagementApp
         #endregion
 
         #region "UI Functions"
-        private void PopulateProjectListView(string name = "", int status=-1)
+        private void PopulateProjectListView(string name = "", int type=-1, int status=-1)
         {
-            CProject[] projects = CJsonDatabase.Instance.GetProjects(name, status);
+            CProject[] projects = CJsonDatabase.Instance.GetProjects(name, type, status);
 
             lvProjects.BeginUpdate();
             lvProjects.Items.Clear();
@@ -464,6 +456,15 @@ namespace ProjectManagementApp
             cbStatus.SelectedIndex = 0;
             cbStatus.EndUpdate();
         }
+        private void PopulateTypeDropdown()
+        {
+            cbType.BeginUpdate();
+            cbType.Items.Clear();
+            cbType.Items.Add("Any Type");
+            cbType.Items.AddRange(CDefines.PROJ_TYPE_LABELS);
+            cbType.SelectedIndex = 0;
+            cbType.EndUpdate();
+        }
         private void PopulateProjectListViewHeaders()
         {
             lvProjects.BeginUpdate();
@@ -482,8 +483,8 @@ namespace ProjectManagementApp
             }
         }
 
-
         #endregion
 
+ 
     }
 }

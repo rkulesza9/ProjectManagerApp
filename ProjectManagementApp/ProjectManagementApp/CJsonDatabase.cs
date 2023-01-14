@@ -21,6 +21,7 @@ namespace ProjectManagementApp
         //json friendly
         public List<CProject> m_lsProjects;
         public List<CResource> m_lsResources;
+        public List<CNotebookPage> m_lsNotebookPages;
 
         public CJsonDatabase() 
         {
@@ -34,6 +35,7 @@ namespace ProjectManagementApp
             if(m_lsProjects == null) m_lsProjects = new List<CProject>();
             if (m_lsResources == null) m_lsResources = new List<CResource>();
             if (m_szFileName == null) m_szFileName = "";
+            if (m_lsNotebookPages == null) m_lsNotebookPages = new List<CNotebookPage>();
         }
 
         public void PopulateDataTable()
@@ -47,6 +49,10 @@ namespace ProjectManagementApp
             foreach(CResource res in m_lsResources)
             {
                 m_pData.Add(res.m_szGuid, res);
+            }
+            foreach(CNotebookPage pg in m_lsNotebookPages)
+            {
+                m_pData.Add(pg.m_szGuid, pg);
             }
         }
 
@@ -68,21 +74,22 @@ namespace ProjectManagementApp
             
         }
 
-        public CProject[] GetProjects(string text="", int status = -1)
+        public CProject[] GetProjects(string text="", int type = -1, int status = -1)
         {
             string[] szTerms = text.ToLower().Split(' ');
 
             return m_lsProjects.Where((proj) =>
             {
                 bool bTextFound = true;
-                string szSearchArea = (proj.m_szName + proj.m_szShortNote + proj.m_szLongNote).ToLower();
+                string szSearchArea = (proj.m_szName + proj.m_szShortNote + proj.m_szLongNote+proj.m_szMainContact+proj.m_szMainDeveloper).ToLower();
                 foreach (string szTerm in szTerms)
                 {
-                    bTextFound = szSearchArea.Contains(szTerm);
+                    bTextFound = szSearchArea.Trim().Contains(szTerm.Trim());
                     if (!bTextFound) break;
                 }
-                return (text.Equals("") || bTextFound ) && 
-                       ( status == -1 || proj.m_nStatusID==status );
+                return (text.Equals("") || bTextFound) &&
+                       (status == -1 || proj.m_nStatusID == status) &&
+                       (type == -1 || proj.m_nProjTypeID == type);
                 
             }).ToArray();
         }
@@ -95,6 +102,14 @@ namespace ProjectManagementApp
                        ((res.m_szName.Contains(search)) || (res.m_szDescription.Contains(search)));
             }).ToArray();
         }
+        public CNotebookPage[] GetNotebookPagesFor(string szProjectGuid)
+        {
+            return m_lsNotebookPages.Where((pg) =>
+            {
+                CProject proj = (CProject)Fetch(CDefines.TYPE_PROJECT, szProjectGuid);
+                return proj.m_nID == pg.m_nProjectID;
+            }).ToArray();
+        }
 
         public CBaseData Remove(string szGuid)
         {
@@ -103,6 +118,7 @@ namespace ProjectManagementApp
 
             if (result.GetType() == typeof(CProject)) m_lsProjects.Remove((CProject)result);
             if (result.GetType() == typeof(CResource)) m_lsResources.Remove((CResource)result);
+            if (result.GetType() == typeof(CNotebookPage)) m_lsNotebookPages.Remove((CNotebookPage)result);
 
             return result;
         }
@@ -119,6 +135,10 @@ namespace ProjectManagementApp
                     break;
                 case CDefines.TYPE_RESOURCE:
                     if (m_lsResources.Count > 0 ) nMaxID = m_lsResources.Max((res) => { return res.m_nID; });
+                    nID = nMaxID + 1;
+                    break;
+                case CDefines.TYPE_NOTEBOOK_PAGE:
+                    if (m_lsNotebookPages.Count > 0) nMaxID = m_lsNotebookPages.Max((pg) => { return pg.m_nID; });
                     nID = nMaxID + 1;
                     break;
                 default:
@@ -142,6 +162,11 @@ namespace ProjectManagementApp
                     data = new CResource();
                     data.m_nID = NewID(nTypeID);
                     m_lsResources.Add((CResource)data);
+                    break;
+                case CDefines.TYPE_NOTEBOOK_PAGE:
+                    data = new CNotebookPage();
+                    data.m_nID = NewID(nTypeID);
+                    m_lsNotebookPages.Add((CNotebookPage)data);
                     break;
                 default:
                     break;

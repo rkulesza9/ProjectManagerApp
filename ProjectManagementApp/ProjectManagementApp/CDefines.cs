@@ -12,6 +12,7 @@ namespace ProjectManagementApp
 
         public const int TYPE_PROJECT = 0;
         public const int TYPE_RESOURCE = 1;
+        public const int TYPE_NOTEBOOK_PAGE = 2;
 
         public const int UI_LISTVIEW_PROJECTS = 0;
         public const int UI_LISTVIEW_RESOURCES = 1;
@@ -21,9 +22,12 @@ namespace ProjectManagementApp
                     return new CColHdr[]
                         {
                             new CColHdr("Name"),
+                            new CColHdr("Type"),
                             new CColHdr("Status"),
                             new CColHdr("Last Worked On"),
-                            new CColHdr("Short Note")
+                            new CColHdr("Short Note"),
+                            //new CColHdr("Main Developer"),
+                            //new CColHdr("Main Contact"),
                         };
                 }
         }
@@ -40,7 +44,30 @@ namespace ProjectManagementApp
                 };
             }
         }
+        //⦁	Add "Type" to project manager including "Desktop Application", "Web Application", "Access Application", "Database", "SSRS Report"
 
+        public const int PROJ_TYPE_DESKTOP = 0;
+        public const int PROJ_TYPE_WEB = 1;
+        public const int PROJ_TYPE_DATABASE = 2;
+        public const int PROJ_TYPE_RESOURCES = 3;
+        public const int PROJ_TYPE_TIME_MNGMT = 4;
+        public const int PROJ_TYPE_ML = 5;
+        public const int PROJ_TYPE_MATH = 6;
+        public const int PROJ_TYPE_SERVER_MGMT = 7;
+        public const int PROJ_TYPE_OTHER = 8;
+
+        public static readonly string[] PROJ_TYPE_LABELS =
+        {
+            "Desktop App",
+            "Web App",
+            "Database",
+            "Gen. Resources",
+            "Time Management",
+            "Machine Learning",
+            "Mathematics",
+            "Server Management",
+            "Other"
+        };
 
         public const int PROJ_STATUS_NEW = 0;
         public const int PROJ_STATUS_ACTIVE = 1;
@@ -70,7 +97,7 @@ namespace ProjectManagementApp
 
         public static readonly string[] PROJ_SRCCTRL_CMDS = new string[]
         {
-            "/K \"{0} cd {1} && git status\"",
+            "/K \"{0}: && cd {1} && git status\"",
             ""
         };
 

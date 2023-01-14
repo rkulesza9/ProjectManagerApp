@@ -29,9 +29,12 @@ namespace ProjectManagementApp
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fmProjectManager));
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblName = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbType = new System.Windows.Forms.ComboBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.cbStatus = new System.Windows.Forms.ComboBox();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -55,7 +58,6 @@ namespace ProjectManagementApp
             this.exportAllToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.backupDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -70,13 +72,15 @@ namespace ProjectManagementApp
             // 
             this.flowLayoutPanel2.Controls.Add(this.lblName);
             this.flowLayoutPanel2.Controls.Add(this.tbName);
+            this.flowLayoutPanel2.Controls.Add(this.label1);
+            this.flowLayoutPanel2.Controls.Add(this.cbType);
             this.flowLayoutPanel2.Controls.Add(this.lblStatus);
             this.flowLayoutPanel2.Controls.Add(this.cbStatus);
             this.flowLayoutPanel2.Controls.Add(this.btnRefresh);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 24);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(800, 28);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(788, 28);
             this.flowLayoutPanel2.TabIndex = 5;
             // 
             // lblName
@@ -97,11 +101,30 @@ namespace ProjectManagementApp
             this.tbName.Size = new System.Drawing.Size(157, 20);
             this.tbName.TabIndex = 2;
             // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(240, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(34, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Type:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cbType
+            // 
+            this.cbType.FormattingEnabled = true;
+            this.cbType.Location = new System.Drawing.Point(280, 3);
+            this.cbType.Name = "cbType";
+            this.cbType.Size = new System.Drawing.Size(121, 21);
+            this.cbType.TabIndex = 7;
+            // 
             // lblStatus
             // 
             this.lblStatus.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(240, 8);
+            this.lblStatus.Location = new System.Drawing.Point(407, 8);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(40, 13);
             this.lblStatus.TabIndex = 3;
@@ -111,14 +134,14 @@ namespace ProjectManagementApp
             // cbStatus
             // 
             this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(286, 3);
+            this.cbStatus.Location = new System.Drawing.Point(453, 3);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(121, 21);
             this.cbStatus.TabIndex = 4;
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(413, 3);
+            this.btnRefresh.Location = new System.Drawing.Point(580, 3);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 5;
@@ -142,8 +165,8 @@ namespace ProjectManagementApp
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pgProject);
             this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 398);
-            this.splitContainer1.SplitterDistance = 200;
+            this.splitContainer1.Size = new System.Drawing.Size(788, 560);
+            this.splitContainer1.SplitterDistance = 375;
             this.splitContainer1.TabIndex = 6;
             // 
             // lvProjects
@@ -155,7 +178,7 @@ namespace ProjectManagementApp
             this.lvProjects.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lvProjects.Location = new System.Drawing.Point(0, 25);
             this.lvProjects.Name = "lvProjects";
-            this.lvProjects.Size = new System.Drawing.Size(800, 175);
+            this.lvProjects.Size = new System.Drawing.Size(788, 350);
             this.lvProjects.TabIndex = 7;
             this.lvProjects.UseCompatibleStateImageBehavior = false;
             this.lvProjects.View = System.Windows.Forms.View.Details;
@@ -169,7 +192,7 @@ namespace ProjectManagementApp
             this.btnAddProject});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(800, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(788, 25);
             this.toolStrip1.TabIndex = 8;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -209,7 +232,7 @@ namespace ProjectManagementApp
             this.pgProject.Location = new System.Drawing.Point(0, 0);
             this.pgProject.Name = "pgProject";
             this.pgProject.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.pgProject.Size = new System.Drawing.Size(800, 172);
+            this.pgProject.Size = new System.Drawing.Size(788, 159);
             this.pgProject.TabIndex = 0;
             this.pgProject.ToolbarVisible = false;
             // 
@@ -218,16 +241,16 @@ namespace ProjectManagementApp
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblLoadStatus,
             this.pbLoadingBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 172);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 159);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(788, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // lblLoadStatus
             // 
             this.lblLoadStatus.Name = "lblLoadStatus";
-            this.lblLoadStatus.Size = new System.Drawing.Size(683, 17);
+            this.lblLoadStatus.Size = new System.Drawing.Size(671, 17);
             this.lblLoadStatus.Spring = true;
             this.lblLoadStatus.Text = "Done";
             this.lblLoadStatus.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -246,7 +269,7 @@ namespace ProjectManagementApp
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(788, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -293,14 +316,14 @@ namespace ProjectManagementApp
             // exportToExcelToolStripMenuItem
             // 
             this.exportToExcelToolStripMenuItem.Name = "exportToExcelToolStripMenuItem";
-            this.exportToExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToExcelToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.exportToExcelToolStripMenuItem.Text = "Export to Excel";
             this.exportToExcelToolStripMenuItem.Click += new System.EventHandler(this.exportToExcelToolStripMenuItem_Click);
             // 
             // exportAllToExcelToolStripMenuItem
             // 
             this.exportAllToExcelToolStripMenuItem.Name = "exportAllToExcelToolStripMenuItem";
-            this.exportAllToExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportAllToExcelToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.exportAllToExcelToolStripMenuItem.Text = "Export All To Excel";
             this.exportAllToExcelToolStripMenuItem.Click += new System.EventHandler(this.exportAllToExcelToolStripMenuItem_Click);
             // 
@@ -312,27 +335,19 @@ namespace ProjectManagementApp
             // 
             // toolsToolStripMenuItem
             // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.backupDatabaseToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // backupDatabaseToolStripMenuItem
-            // 
-            this.backupDatabaseToolStripMenuItem.Name = "backupDatabaseToolStripMenuItem";
-            this.backupDatabaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.backupDatabaseToolStripMenuItem.Text = "Backup Database";
-            this.backupDatabaseToolStripMenuItem.Click += new System.EventHandler(this.backupDatabaseToolStripMenuItem_Click);
             // 
             // fmProjectManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(788, 612);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "fmProjectManager";
             this.Text = "Project Manager";
             this.flowLayoutPanel2.ResumeLayout(false);
@@ -382,7 +397,8 @@ namespace ProjectManagementApp
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblLoadStatus;
         private System.Windows.Forms.ToolStripProgressBar pbLoadingBar;
-        private System.Windows.Forms.ToolStripMenuItem backupDatabaseToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbType;
     }
 }
 
