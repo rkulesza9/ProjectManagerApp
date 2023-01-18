@@ -64,7 +64,7 @@ namespace ProjectManagementApp
                 CListViewItem pItem = (CListViewItem)lvProjects.SelectedItems[0];
                 CProject proj = (CProject)pItem.Tag;
 
-                fmLongNote fm = new fmLongNote(proj);
+                fmNotebook fm = new fmNotebook(proj);
                 fm.Show();
 
                 fmResources fm2 = new fmResources(proj);
@@ -79,7 +79,6 @@ namespace ProjectManagementApp
                 Debug.WriteLine(ex);
             }
         }
-
         private void PgProject_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             try
@@ -120,7 +119,6 @@ namespace ProjectManagementApp
                 Debug.WriteLine(ex);
             }
         }
-
         private void lvProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -143,7 +141,6 @@ namespace ProjectManagementApp
                 Debug.WriteLine(ex);
             }
         }
-
         private void btnPin_Click(object sender, EventArgs e)
         {
             try
@@ -163,7 +160,6 @@ namespace ProjectManagementApp
                 Debug.WriteLine(ex);
             }
         }
-
         private void btnAddProject_Click(object sender, EventArgs e)
         {
             try
@@ -180,7 +176,6 @@ namespace ProjectManagementApp
                 Debug.WriteLine(ex);
             }
         }
-
         private void btnDeleteProject_Click(object sender, EventArgs e)
         {
             try
@@ -239,7 +234,6 @@ namespace ProjectManagementApp
                 Debug.WriteLine(ex);
             }
         }
-
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -338,7 +332,10 @@ namespace ProjectManagementApp
                 {
 
                     CProject proj = (CProject)lvProjects.SelectedItems[0].Tag;
-                    string szProjNotes = proj.szLongNote;
+                    CNotebookPage[] lsNotes = CJsonDatabase.Instance.GetNotebookPagesFor(proj.m_szGuid);
+                    string szProjNotes = "";
+                    foreach (CNotebookPage pg in lsNotes) szProjNotes += $"Title: {pg.m_szName}\n{FromRtf(pg.m_szText)}\n\n";
+                    szProjNotes = ToRtf(szProjNotes);
                     string szFile = saveFileDialog1.FileName;
 
                     Cursor = Cursors.WaitCursor;
@@ -370,7 +367,6 @@ namespace ProjectManagementApp
                 Debug.WriteLine(ex);
             }
         }
-
         private void exportAllToExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -407,7 +403,12 @@ namespace ProjectManagementApp
                             string szFileName = $"{proj.m_szName.Substring(0, nFileNameLen)}.xlsx";
                             foreach (string c in new string[] { ":", "\\", "/", "?", "*", "[", "]" }) szFileName = szFileName.Replace(c, "");
                             string szFile = $"{szPath}\\{szFileName}";
-                            CExporter.ToExcel(proj, proj.m_szLongNote, szFile);
+
+                            string szNotes = "";
+                            CNotebookPage[] lsNotes = CJsonDatabase.Instance.GetNotebookPagesFor(proj.m_szGuid);
+                            foreach (CNotebookPage pg in lsNotes) szNotes += $"Title: {pg.m_szName}\n{FromRtf(pg.m_szText)}\n\n";
+                            szNotes = ToRtf(szNotes);
+                            CExporter.ToExcel(proj, szNotes, szFile);
                         }
                     };
 
@@ -427,6 +428,82 @@ namespace ProjectManagementApp
             }
             catch(Exception ex)
             {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        private void exportToZipToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvProjects.SelectedItems.Count == 0)
+                {
+                    MessageBox.Show("Please Select A Project First.");
+                    return;
+                }
+                ListViewItem item = lvProjects.SelectedItems[0];
+                CProject proj = (CProject)item.Tag;
+
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+                saveFileDialog1.Title = "Export Project To Zip";
+                saveFileDialog1.DefaultExt = "zip";
+                saveFileDialog1.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
+                saveFileDialog1.RestoreDirectory = true;
+
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    string szFile = saveFileDialog1.FileName;
+                    BackgroundWorker wkr = new BackgroundWorker();
+                    wkr.DoWork += (sender1, ex) =>
+                    {
+                        CExporter.ToZip(proj, szFile, (status) =>
+                        {
+                            Invoke(new MethodInvoker(() => { lblLoadStatus.Text = status; }));
+                        });
+                    };
+
+                    wkr.RunWorkerAsync();
+                }
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("exportToZipToolStripMenuItem_Click");
+                Debug.WriteLine(ex);
+            }
+        }
+
+        private void exportAllToZipToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CProject[] lsProjs = CJsonDatabase.Instance.GetProjects();
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+                saveFileDialog1.Title = "Export Project To Zip";
+                saveFileDialog1.DefaultExt = "zip";
+                saveFileDialog1.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
+                saveFileDialog1.RestoreDirectory = true;
+
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    string szFile = saveFileDialog1.FileName;
+                    BackgroundWorker wkr = new BackgroundWorker();
+                    wkr.DoWork += (sender1, ex) =>
+                    {
+                        CExporter.ToZip(lsProjs, szFile, (status) =>
+                        {
+                            Invoke(new MethodInvoker(() => { lblLoadStatus.Text = status; }));
+                        });
+                    };
+
+                    wkr.RunWorkerAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("exportAllToZipToolStripMenuItem_Click");
                 Debug.WriteLine(ex);
             }
         }
@@ -482,9 +559,24 @@ namespace ProjectManagementApp
                 hdr.Width = -2;
             }
         }
-
         #endregion
 
- 
+        private string ToRtf(string text)
+        {
+            RichTextBox rtb = new RichTextBox();
+            rtb.Text = text;
+            string szRtb = rtb.Rtf;
+            rtb.Dispose();
+            return szRtb;
+        }
+        private string FromRtf(string rtf)
+        {
+            RichTextBox rtb = new RichTextBox();
+            rtb.Rtf = rtf;
+            string szRtb = rtb.Text;
+            rtb.Dispose();
+            return szRtb;
+        }
+
     }
 }

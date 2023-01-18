@@ -56,6 +56,8 @@ namespace ProjectManagementApp
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportAllToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToZipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportAllToZipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel2.SuspendLayout();
@@ -80,7 +82,7 @@ namespace ProjectManagementApp
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 24);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(788, 28);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(897, 28);
             this.flowLayoutPanel2.TabIndex = 5;
             // 
             // lblName
@@ -165,8 +167,8 @@ namespace ProjectManagementApp
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pgProject);
             this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
-            this.splitContainer1.Size = new System.Drawing.Size(788, 560);
-            this.splitContainer1.SplitterDistance = 375;
+            this.splitContainer1.Size = new System.Drawing.Size(897, 407);
+            this.splitContainer1.SplitterDistance = 272;
             this.splitContainer1.TabIndex = 6;
             // 
             // lvProjects
@@ -178,7 +180,7 @@ namespace ProjectManagementApp
             this.lvProjects.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lvProjects.Location = new System.Drawing.Point(0, 25);
             this.lvProjects.Name = "lvProjects";
-            this.lvProjects.Size = new System.Drawing.Size(788, 350);
+            this.lvProjects.Size = new System.Drawing.Size(897, 247);
             this.lvProjects.TabIndex = 7;
             this.lvProjects.UseCompatibleStateImageBehavior = false;
             this.lvProjects.View = System.Windows.Forms.View.Details;
@@ -192,7 +194,7 @@ namespace ProjectManagementApp
             this.btnAddProject});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(788, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(897, 25);
             this.toolStrip1.TabIndex = 8;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -232,7 +234,7 @@ namespace ProjectManagementApp
             this.pgProject.Location = new System.Drawing.Point(0, 0);
             this.pgProject.Name = "pgProject";
             this.pgProject.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.pgProject.Size = new System.Drawing.Size(788, 159);
+            this.pgProject.Size = new System.Drawing.Size(897, 109);
             this.pgProject.TabIndex = 0;
             this.pgProject.ToolbarVisible = false;
             // 
@@ -241,16 +243,16 @@ namespace ProjectManagementApp
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblLoadStatus,
             this.pbLoadingBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 159);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 109);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(788, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(897, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // lblLoadStatus
             // 
             this.lblLoadStatus.Name = "lblLoadStatus";
-            this.lblLoadStatus.Size = new System.Drawing.Size(671, 17);
+            this.lblLoadStatus.Size = new System.Drawing.Size(780, 17);
             this.lblLoadStatus.Spring = true;
             this.lblLoadStatus.Text = "Done";
             this.lblLoadStatus.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -269,7 +271,7 @@ namespace ProjectManagementApp
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(788, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(897, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -308,7 +310,9 @@ namespace ProjectManagementApp
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportToExcelToolStripMenuItem,
-            this.exportAllToExcelToolStripMenuItem});
+            this.exportAllToExcelToolStripMenuItem,
+            this.exportToZipToolStripMenuItem,
+            this.exportAllToZipToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.editToolStripMenuItem.Text = "Export";
@@ -327,6 +331,20 @@ namespace ProjectManagementApp
             this.exportAllToExcelToolStripMenuItem.Text = "Export All To Excel";
             this.exportAllToExcelToolStripMenuItem.Click += new System.EventHandler(this.exportAllToExcelToolStripMenuItem_Click);
             // 
+            // exportToZipToolStripMenuItem
+            // 
+            this.exportToZipToolStripMenuItem.Name = "exportToZipToolStripMenuItem";
+            this.exportToZipToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.exportToZipToolStripMenuItem.Text = "Export To Zip";
+            this.exportToZipToolStripMenuItem.Click += new System.EventHandler(this.exportToZipToolStripMenuItem_Click);
+            // 
+            // exportAllToZipToolStripMenuItem
+            // 
+            this.exportAllToZipToolStripMenuItem.Name = "exportAllToZipToolStripMenuItem";
+            this.exportAllToZipToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.exportAllToZipToolStripMenuItem.Text = "Export All To Zip";
+            this.exportAllToZipToolStripMenuItem.Click += new System.EventHandler(this.exportAllToZipToolStripMenuItem_Click);
+            // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
@@ -343,7 +361,7 @@ namespace ProjectManagementApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(788, 612);
+            this.ClientSize = new System.Drawing.Size(897, 459);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.menuStrip1);
@@ -399,6 +417,8 @@ namespace ProjectManagementApp
         private System.Windows.Forms.ToolStripProgressBar pbLoadingBar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbType;
+        private System.Windows.Forms.ToolStripMenuItem exportToZipToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportAllToZipToolStripMenuItem;
     }
 }
 
