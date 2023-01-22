@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,15 +9,15 @@ using System.Windows.Forms;
 
 namespace ProjectManagementApp
 {
-    public class CRightClickMenu : ContextMenuStrip
+    public class CProjectRightClickMenu : ContextMenuStrip
     {
         public CProject m_pProject;
-        public CRightClickMenu() : base()
+        public CProjectRightClickMenu() : base()
         {
             Initialize(null);
         }
 
-        public CRightClickMenu(CProject proj) : base()
+        public CProjectRightClickMenu(CProject proj) : base()
         {
             Initialize(proj);
         }
@@ -32,6 +33,7 @@ namespace ProjectManagementApp
             Items.Add("Open Project Directory");
             //Items.Add("Open Wrike");
             Items.Add($"Open {m_szSCText}");
+            Items.Add($"Change Background Color");
 
             int x = 0;
             //Items[x++].Click += LongNote_Click;
@@ -40,6 +42,27 @@ namespace ProjectManagementApp
             Items[x++].Click += ProjectDir_Click;
             //Items[x++].Click += Wrike_Click;
             Items[x++].Click += SourceControl_Click;
+            Items[x++].Click += Highlight_Click;
+        }
+
+        private void Highlight_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ColorDialog dlg = new ColorDialog();
+                dlg.AllowFullOpen = false;
+                dlg.ShowHelp = true;
+                dlg.Color = m_pProject.pColor;
+
+                if(dlg.ShowDialog() == DialogResult.OK)
+                {
+                    m_pProject.pColor = dlg.Color;
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Highlight_Click");
+                Debug.WriteLine(ex);
+            }
         }
 
         private void Notebook_Click(object sender, EventArgs e)

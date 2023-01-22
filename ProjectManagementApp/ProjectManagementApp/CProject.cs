@@ -26,6 +26,7 @@ namespace ProjectManagementApp
         public string m_szMainDeveloper;
         public string m_szMainContact;
         public int m_nProjTypeID;
+        public Color m_pColor;
         
         public CProject() : base()
         {
@@ -51,6 +52,7 @@ namespace ProjectManagementApp
                 m_szMainContact = "N/A";
                 m_szMainDeveloper = "N/A";
                 m_nProjTypeID = CDefines.PROJ_TYPE_DESKTOP;
+                m_pColor = Color.White;
             }
             catch(Exception ex)
             {
@@ -80,7 +82,7 @@ namespace ProjectManagementApp
 
             // highlight pinned items
             if (m_bPinned) item.BackColor = Color.Yellow;
-            else item.BackColor = Color.White;
+            else item.BackColor = m_pColor;
         }
 
         #region "propertygrid"
@@ -316,6 +318,22 @@ namespace ProjectManagementApp
             set
             {
                 m_szMainContact = value;
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
+                UpdateUI();
+            }
+        }
+        [JsonIgnore]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [Category("Properties")]
+        [DisplayName("Color")]
+        public Color pColor
+        {
+            get { return m_pColor; }
+            set
+            {
+                m_pColor = value;
                 m_dtLastUpdated = DateTime.Now;
                 CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();

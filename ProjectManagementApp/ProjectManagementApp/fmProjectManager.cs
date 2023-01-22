@@ -27,7 +27,7 @@ namespace ProjectManagementApp
                 StartPosition = FormStartPosition.CenterScreen;
                 lvProjects.ListViewItemSorter = new CListViewComparer(CDefines.UI_LISTVIEW_PROJECTS, 0, SortOrder.Ascending);
                 lvProjects.ColumnClick += LvProjects_ColumnClick;
-                lvProjects.ContextMenuStrip = new CRightClickMenu();
+                lvProjects.ContextMenuStrip = new CProjectRightClickMenu();
                 pgProject.PropertyValueChanged += PgProject_PropertyValueChanged;
                 lvProjects.DoubleClick += LvProjects_DoubleClick;
 
@@ -132,7 +132,7 @@ namespace ProjectManagementApp
 
                 if (lvProjects.ContextMenuStrip != null)
                 {
-                    CRightClickMenu menu = (CRightClickMenu)lvProjects.ContextMenuStrip;
+                    CProjectRightClickMenu menu = (CProjectRightClickMenu)lvProjects.ContextMenuStrip;
                     menu.m_pProject = project;
                 }
             }

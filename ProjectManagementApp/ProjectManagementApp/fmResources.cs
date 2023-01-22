@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,7 @@ namespace ProjectManagementApp
     public partial class fmResources : Form
     {
         private CProject m_pProject;
+        
         public fmResources(CProject proj)
         {
             InitializeComponent();
@@ -21,6 +23,7 @@ namespace ProjectManagementApp
             lvRes.ListViewItemSorter = new CListViewComparer(CDefines.UI_LISTVIEW_RESOURCES, 0, SortOrder.Ascending);
             lvRes.ColumnClick += LvRes_ColumnClick;
             lvRes.DoubleClick += LvRes_DoubleClick;
+            lvRes.ContextMenuStrip = new CResRightClickMenu();
             pgRes.PropertyValueChanged += PgRes_PropertyValueChanged;
             FormClosed += FmResources_FormClosed;
 
@@ -108,6 +111,12 @@ namespace ProjectManagementApp
 
                 CListViewItem pSelItem = (CListViewItem)lvRes.SelectedItems[0];
                 CResource pRes = (CResource)pSelItem.Tag;
+
+                if (lvRes.ContextMenuStrip != null)
+                {
+                    CResRightClickMenu menu = (CResRightClickMenu)lvRes.ContextMenuStrip;
+                    menu.m_pResource = pRes;
+                }
 
                 pgRes.SelectedObject = pRes;
                 

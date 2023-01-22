@@ -54,7 +54,9 @@ namespace ProjectManagementApp
         public const int PROJ_TYPE_ML = 5;
         public const int PROJ_TYPE_MATH = 6;
         public const int PROJ_TYPE_SERVER_MGMT = 7;
-        public const int PROJ_TYPE_OTHER = 8;
+        public const int PROJ_TYPE_VIDEOGAME = 8;
+        public const int PROJ_TYPE_HEALTH = 9;
+        public const int PROJ_TYPE_OTHER = 10;
 
         public static readonly string[] PROJ_TYPE_LABELS =
         {
@@ -66,6 +68,8 @@ namespace ProjectManagementApp
             "Machine Learning",
             "Mathematics",
             "Server Management",
+            "Videogame",
+            "Health",
             "Other"
         };
 

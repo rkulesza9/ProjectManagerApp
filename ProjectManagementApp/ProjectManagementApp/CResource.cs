@@ -18,6 +18,7 @@ namespace ProjectManagementApp
         public string m_szPath;
         public int m_nProjectID;
         public bool m_bUniversal;
+        public Color m_pColor;
 
         public CResource() : base() { }
 
@@ -33,6 +34,7 @@ namespace ProjectManagementApp
                 m_szPath = "C:\\";
                 m_nProjectID = -1;
                 m_bUniversal = false;
+                m_pColor = Color.White;
                 
             }catch(Exception ex)
             {
@@ -62,7 +64,7 @@ namespace ProjectManagementApp
                 // highlight pinned items
                 if (m_bPinned) item.BackColor = Color.Yellow;
                 else if (m_bUniversal) item.BackColor = Color.Beige;
-                else item.BackColor = Color.White;
+                else item.BackColor = m_pColor;
             }
             catch(Exception ex)
             {
@@ -164,7 +166,22 @@ namespace ProjectManagementApp
                 UpdateUI();
             }
         }
-        
+        [JsonIgnore]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [Category("Properties")]
+        [DisplayName("Color")]
+        public Color pColor
+        {
+            get { return m_pColor; }
+            set
+            {
+                m_pColor = value;
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
+                UpdateUI();
+            }
+        }
         #endregion
     }
 }
