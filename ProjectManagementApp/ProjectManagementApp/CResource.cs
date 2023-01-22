@@ -31,7 +31,7 @@ namespace ProjectManagementApp
                 m_nTypeID = CDefines.TYPE_RESOURCE;
                 m_szName = "New Resource";
                 m_szDescription = "This is a new resource.";
-                m_szPath = "C:\\";
+                m_szPath = "";
                 m_nProjectID = -1;
                 m_bUniversal = false;
                 m_pColor = Color.White;

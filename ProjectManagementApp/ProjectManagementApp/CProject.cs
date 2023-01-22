@@ -43,8 +43,8 @@ namespace ProjectManagementApp
                 m_szName = "New Project";
                 m_nStatusID = CDefines.PROJ_STATUS_NEW;
                 m_dtLastWorkedOn = DateTime.Now;
-                m_szProjectDir = "C:\\";
-                m_szWrikeUrl = "https://wrike.com";
+                m_szProjectDir = "";
+                m_szWrikeUrl = "";
                 m_szShortNote = "";
                 m_szLongNote = "";
                 m_szSourceControlPath = "";
