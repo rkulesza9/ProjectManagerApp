@@ -15,6 +15,7 @@ namespace ProjectManagementApp
         public string m_szName;
         public string m_szText;
         public int m_nProjectID;
+        public int m_nOrder;
 
         public CNotebookPage()
         {
@@ -30,6 +31,7 @@ namespace ProjectManagementApp
                 m_szName = "New Page";
                 m_szText = "";
                 m_nProjectID = -1;
+                m_nOrder = -1;
             }catch(Exception ex)
             {
                 Debug.WriteLine(ex);
@@ -94,6 +96,22 @@ namespace ProjectManagementApp
             set
             {
                 m_nProjectID = value;
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
+                UpdateUI();
+            }
+        }
+        [JsonIgnore]
+        [ReadOnly(true)]
+        [Browsable(false)]
+        [Category("Properties")]
+        [DisplayName("Order")]
+        public int nOrder
+        {
+            get { return m_nProjectID; }
+            set
+            {
+                m_nOrder = value;
                 m_dtLastUpdated = DateTime.Now;
                 CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();

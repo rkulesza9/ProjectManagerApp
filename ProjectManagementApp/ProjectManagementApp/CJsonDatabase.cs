@@ -108,6 +108,9 @@ namespace ProjectManagementApp
             {
                 CProject proj = (CProject)Fetch(CDefines.TYPE_PROJECT, szProjectGuid);
                 return proj.m_nID == pg.m_nProjectID;
+            }).OrderBy((pg) =>
+            {
+                return pg.m_nOrder;
             }).ToArray();
         }
 

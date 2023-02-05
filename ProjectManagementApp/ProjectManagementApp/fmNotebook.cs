@@ -220,6 +220,7 @@ namespace ProjectManagementApp
         public TabPage NewPage(CNotebookPage nbp)
         {
             TabPage pg = new TabPage();
+            pg.Tag = nbp;
             RicherTextBox.RicherTextBox tb = new RicherTextBox.RicherTextBox();
 
             tb.Dock = DockStyle.Fill;
@@ -228,6 +229,7 @@ namespace ProjectManagementApp
             pg.Controls.Add(tb);
 
             int index = pTabControl.TabPages.Count - 1;
+            if (nbp.m_nOrder == -1) nbp.m_nOrder = index;
             pTabControl.TabPages.Insert(index, pg);
 
             pg.Tag = nbp;
@@ -321,6 +323,40 @@ namespace ProjectManagementApp
             return result;
         }
 
+        public void MovePageLeft(int nIndex)
+        {
+            if (nIndex <= 0) return;
+
+            CNotebookPage pg = (CNotebookPage)m_lsNotebookPages[nIndex];
+            CNotebookPage pg2 = (CNotebookPage)m_lsNotebookPages[nIndex - 1];
+            m_lsNotebookPages[nIndex] = m_lsNotebookPages[nIndex - 1];
+            m_lsNotebookPages[nIndex - 1] = pg;
+
+            TabPage tab = pTabControl.TabPages[nIndex];
+            pTabControl.TabPages[nIndex] = pTabControl.TabPages[nIndex - 1];
+            pTabControl.TabPages[nIndex - 1] = tab;
+
+            pg.nOrder = nIndex - 1;
+            pg2.nOrder = nIndex;
+            pTabControl.SelectedIndex = nIndex - 1;
+        }
+        public void MovePageRight(int nIndex)
+        {
+            if (nIndex >= m_lsNotebookPages.Count-1) return;
+
+            CNotebookPage pg = (CNotebookPage)m_lsNotebookPages[nIndex];
+            CNotebookPage pg2 = (CNotebookPage)m_lsNotebookPages[nIndex + 1];
+            m_lsNotebookPages[nIndex] = m_lsNotebookPages[nIndex + 1];
+            m_lsNotebookPages[nIndex + 1] = pg;
+              
+            TabPage tab = pTabControl.TabPages[nIndex];
+            pTabControl.TabPages[nIndex] = pTabControl.TabPages[nIndex + 1];
+            pTabControl.TabPages[nIndex + 1] = tab;
+
+            pg.nOrder = nIndex + 1;
+            pg2.nOrder = nIndex;
+            pTabControl.SelectedIndex = nIndex + 1;
+        }
 
     }
 
@@ -345,14 +381,43 @@ namespace ProjectManagementApp
             Items.Add("New Page");
             Items.Add("Rename Page");
             Items.Add("Delete Page");
+            Items.Add("Move Left");
+            Items.Add("Move Right");
 
             int x = 0;
-            Items[x++].Click += CNotebookRightClickMenu_Click2;
-            Items[x++].Click += CNotebookRightClickMenu_Click1;
-            Items[x++].Click += CNotebookRightClickMenu_Click;
+            Items[x++].Click += NewPage_Click;
+            Items[x++].Click += RenamePage_Click;
+            Items[x++].Click += DeletePage_Click;
+            Items[x++].Click += MoveLeft_Click;
+            Items[x++].Click += MoveRight_Click;
         }
 
-        private void CNotebookRightClickMenu_Click2(object sender, EventArgs e)
+        private void MoveRight_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                m_fmParent.MovePageRight(m_pNotebookPage.m_nOrder);
+                
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        private void MoveLeft_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                m_fmParent.MovePageLeft(m_pNotebookPage.m_nOrder);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        private void NewPage_Click(object sender, EventArgs e)
         {
             try
             {
@@ -364,7 +429,7 @@ namespace ProjectManagementApp
             }
         }
 
-        private void CNotebookRightClickMenu_Click1(object sender, EventArgs e)
+        private void RenamePage_Click(object sender, EventArgs e)
         {
             try
             {
@@ -384,7 +449,7 @@ namespace ProjectManagementApp
             }
         }
 
-        private void CNotebookRightClickMenu_Click(object sender, EventArgs e)
+        private void DeletePage_Click(object sender, EventArgs e)
         {
             try
             {
