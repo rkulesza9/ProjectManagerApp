@@ -14,7 +14,7 @@ namespace ProjectManagementApp
 {
     public partial class fmResources : Form
     {
-        private CProject m_pProject;
+        public CProject m_pProject;
         
         public fmResources(CProject proj)
         {

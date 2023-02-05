@@ -69,6 +69,20 @@ namespace ProjectManagementApp
         {
             try
             {
+                foreach(Form pExistingForm in fmProjectManager.m_pOpenForms)
+                {
+                    if (pExistingForm.GetType(). Equals(typeof(fmNotebook)))
+                    {
+                        fmNotebook fmNtbk = (fmNotebook)pExistingForm;
+                        if(fmNtbk.m_pProject.m_nID == m_pProject.m_nID)
+                        {
+                            fmNtbk.WindowState = FormWindowState.Normal;
+                            fmNtbk.Select();
+                            return;
+                        }
+                    }
+                }
+
                 fmNotebook fm = new fmNotebook(m_pProject);
                 fm.Show();
             }catch(Exception ex)
@@ -106,6 +120,19 @@ namespace ProjectManagementApp
         {
             try
             {
+                foreach (Form pExistingForm in fmProjectManager.m_pOpenForms)
+                {
+                    if (pExistingForm.GetType().Equals(typeof(fmResources)))
+                    {
+                        fmResources fmRes = (fmResources)pExistingForm;
+                        if (fmRes.m_pProject.m_nID == m_pProject.m_nID)
+                        {
+                            fmRes.WindowState = FormWindowState.Normal;
+                            fmRes.Select();
+                            return;
+                        }
+                    }
+                }
                 fmResources fm = new fmResources(m_pProject);
                 fm.Show();
             }catch(Exception ex)
