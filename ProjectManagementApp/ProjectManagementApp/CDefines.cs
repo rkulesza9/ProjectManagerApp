@@ -62,49 +62,49 @@ namespace ProjectManagementApp
 
         //⦁	Add "Type" to project manager including "Desktop Application", "Web Application", "Access Application", "Database", "SSRS Report"
 
-        public const int PROJ_TYPE_DESKTOP = 0;
-        public const int PROJ_TYPE_WEB = 1;
-        public const int PROJ_TYPE_DATABASE = 2;
-        public const int PROJ_TYPE_RESOURCES = 3;
-        public const int PROJ_TYPE_TIME_MNGMT = 4;
-        public const int PROJ_TYPE_ML = 5;
-        public const int PROJ_TYPE_MATH = 6;
-        public const int PROJ_TYPE_SERVER_MGMT = 7;
-        public const int PROJ_TYPE_VIDEOGAME = 8;
-        public const int PROJ_TYPE_HEALTH = 9;
-        public const int PROJ_TYPE_OTHER = 10;
+        //public const int PROJ_TYPE_DESKTOP = 0;
+        //public const int PROJ_TYPE_WEB = 1;
+        //public const int PROJ_TYPE_DATABASE = 2;
+        //public const int PROJ_TYPE_RESOURCES = 3;
+        //public const int PROJ_TYPE_TIME_MNGMT = 4;
+        //public const int PROJ_TYPE_ML = 5;
+        //public const int PROJ_TYPE_MATH = 6;
+        //public const int PROJ_TYPE_SERVER_MGMT = 7;
+        //public const int PROJ_TYPE_VIDEOGAME = 8;
+        //public const int PROJ_TYPE_HEALTH = 9;
+        //public const int PROJ_TYPE_OTHER = 10;
 
-        public static readonly string[] PROJ_TYPE_LABELS =
-        {
-            "Desktop App",
-            "Web App",
-            "Database",
-            "Gen. Resources",
-            "Time Management",
-            "Machine Learning",
-            "Mathematics",
-            "Server Management",
-            "Videogame",
-            "Health",
-            "Other"
-        };
+        //public static readonly string[] PROJ_TYPE_LABELS =
+        //{
+        //    "Desktop App",
+        //    "Web App",
+        //    "Database",
+        //    "Gen. Resources",
+        //    "Time Management",
+        //    "Machine Learning",
+        //    "Mathematics",
+        //    "Server Management",
+        //    "Videogame",
+        //    "Health",
+        //    "Other"
+        //};
 
-        public const int PROJ_STATUS_NEW = 0;
-        public const int PROJ_STATUS_ACTIVE = 1;
-        public const int PROJ_STATUS_ON_HOLD = 2;
-        public const int PROJ_STATUS_INACTIVE = 3;
-        public const int PROJ_STATUS_COMPLETED = 4;
-        public const int PROJ_STATUS_CANCELED = 5;
+        //public const int PROJ_STATUS_NEW = 0;
+        //public const int PROJ_STATUS_ACTIVE = 1;
+        //public const int PROJ_STATUS_ON_HOLD = 2;
+        //public const int PROJ_STATUS_INACTIVE = 3;
+        //public const int PROJ_STATUS_COMPLETED = 4;
+        //public const int PROJ_STATUS_CANCELED = 5;
 
-        public static readonly string[] PROJ_STATUS_LABELS = new string[]
-        {
-            "New",
-            "Active",
-            "On Hold",
-            "Inactive",
-            "Completed",
-            "Canceled"
-        };
+        //public static readonly string[] PROJ_STATUS_LABELS = new string[]
+        //{
+        //    "New",
+        //    "Active",
+        //    "On Hold",
+        //    "Inactive",
+        //    "Completed",
+        //    "Canceled"
+        //};
 
         public const int PROJ_SRCCTRL_GIT = 0;
         public const int PROJ_SRCCTRL_SOURCESAFE = 1;

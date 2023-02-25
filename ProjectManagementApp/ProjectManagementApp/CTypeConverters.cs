@@ -43,8 +43,7 @@ namespace ProjectManagementApp
             }
             public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
             {
-                string[] labels = CJsonDatabase.Instance.GetProjectTypeLabels();
-                return new StandardValuesCollection(labels);
+                return new StandardValuesCollection(CDefines.PROJ_SRCCTRL_LABELS);
             }
         }
         public class CProjectTypeConverter : StringConverter
@@ -62,7 +61,8 @@ namespace ProjectManagementApp
             }
             public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
             {
-                return new StandardValuesCollection(CDefines.PROJ_TYPE_LABELS);
+                string[] labels = CJsonDatabase.Instance.GetProjectTypeLabels();
+                return new StandardValuesCollection(labels);
             }
         }
     }

@@ -7,7 +7,7 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="ProjectManagementApp.exe.manifest" size="6842">
+    <dependentAssembly dependencyType="install" codebase="Application Files\ProjectManagementApp_1_0_0_32\ProjectManagementApp.exe.manifest" size="6842">
       <assemblyIdentity name="ProjectManagementApp.exe" version="1.0.0.32" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
