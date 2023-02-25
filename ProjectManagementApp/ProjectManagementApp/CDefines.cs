@@ -13,9 +13,13 @@ namespace ProjectManagementApp
         public const int TYPE_PROJECT = 0;
         public const int TYPE_RESOURCE = 1;
         public const int TYPE_NOTEBOOK_PAGE = 2;
+        public const int TYPE_PROJECT_TYPE = 3;
+        public const int TYPE_PROJECT_STATUS = 4;
 
         public const int UI_LISTVIEW_PROJECTS = 0;
         public const int UI_LISTVIEW_RESOURCES = 1;
+        public const int UI_LISTVIEW_LABELS = 2;
+
         public static CColHdr[] UI_COLUMNS_PROJECTS
         {
                 get {
@@ -44,6 +48,18 @@ namespace ProjectManagementApp
                 };
             }
         }
+
+        public static CColHdr[] UI_COLUMNS_LABEL
+        {
+            get
+            {
+                return new CColHdr[]
+                {
+                    new CColHdr("Label Text")
+                };
+            }
+        }
+
         //⦁	Add "Type" to project manager including "Desktop Application", "Web Application", "Access Application", "Database", "SSRS Report"
 
         public const int PROJ_TYPE_DESKTOP = 0;

@@ -26,6 +26,8 @@ namespace ProjectManagementApp
             CBaseData yData = GetData(y);
             CProject xProj, yProj;
             CResource xRes, yRes;
+            CProjectType xPType, yPType;
+            CProjectStatus xStatus, yStatus;
             int nOrder = m_pSortOrder == SortOrder.Ascending ? 1 : -1;
 
             // pinned should always appear on top
@@ -50,6 +52,20 @@ namespace ProjectManagementApp
                     yRes = (CResource)yData;
                     if (m_nColumn == 0) return nOrder * xRes.m_szName.CompareTo(yRes.m_szName);
                     if (m_nColumn == 1) return nOrder * xRes.m_szDescription.CompareTo(yRes.m_szDescription);
+                    break;
+                case CDefines.UI_LISTVIEW_LABELS:
+                    if (xData.GetType() == typeof(CProjectType))
+                    {
+                        xPType = (CProjectType)xData;
+                        yPType = (CProjectType)yData;
+                        if (m_nColumn == 0) return nOrder * xPType.m_szText.CompareTo(yPType.m_szText);
+                    }
+                    else if (xData.GetType() == typeof(CProjectStatus))
+                    {
+                        xStatus = (CProjectStatus)xData;
+                        yStatus = (CProjectStatus)yData;
+                        if (m_nColumn == 0) return nOrder * xStatus.m_szText.CompareTo(yStatus.m_szText);
+                    }
                     break;
                 default:
                     break;

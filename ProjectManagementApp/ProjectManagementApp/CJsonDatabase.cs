@@ -22,6 +22,8 @@ namespace ProjectManagementApp
         public List<CProject> m_lsProjects;
         public List<CResource> m_lsResources;
         public List<CNotebookPage> m_lsNotebookPages;
+        public List<CProjectStatus> m_lsProjectStatuses;
+        public List<CProjectType> m_lsProjectTypes;
 
         public CJsonDatabase() 
         {
@@ -36,6 +38,8 @@ namespace ProjectManagementApp
             if (m_lsResources == null) m_lsResources = new List<CResource>();
             if (m_szFileName == null) m_szFileName = "";
             if (m_lsNotebookPages == null) m_lsNotebookPages = new List<CNotebookPage>();
+            if (m_lsProjectTypes == null) m_lsProjectTypes = new List<CProjectType>();
+            if (m_lsProjectStatuses == null) m_lsProjectStatuses = new List<CProjectStatus>();
         }
 
         public void PopulateDataTable()
@@ -54,6 +58,15 @@ namespace ProjectManagementApp
             {
                 m_pData.Add(pg.m_szGuid, pg);
             }
+            foreach (CProjectType tp in m_lsProjectTypes)
+            {
+                m_pData.Add(tp.m_szGuid, tp);
+            }
+            foreach (CProjectStatus s in m_lsProjectStatuses)
+            {
+                m_pData.Add(s.m_szGuid, s);
+            }
+
         }
 
         public CBaseData Fetch(int nTypeID, string szGuid)
@@ -73,7 +86,78 @@ namespace ProjectManagementApp
             return null;
             
         }
+        public void PopulateDefaultLabels()
+        {
+            m_lsProjectTypes.Clear();
+            string[] lsProjTypes = new string[]
+            {
+                "Desktop App", "Web App", "Database", "SSRS Report",
+                "Access App", "Gen. Resources", "Research", "Source Control",
+                "Maintenance", "Documentation", "Other"
+            };
+            foreach (string szLabel in lsProjTypes)
+            {
+                ((CProjectType)Fetch(CDefines.TYPE_PROJECT_TYPE, -1)).m_szText = szLabel;
+            }
 
+            m_lsProjectStatuses.Clear();
+            string[] lsStatus = new string[]
+            {
+                "New",
+                "Active",
+                "On Hold",
+                "Inactive",
+                "Completed",
+                "Canceled"
+            };
+            foreach (string szLabel in lsStatus)
+            {
+                ((CProjectStatus)Fetch(CDefines.TYPE_PROJECT_STATUS, -1)).m_szText = szLabel;
+            }
+        }
+        public int GetIDForLabel(int nLabelTypeID, string szText)
+        {
+            int nID = -1;
+
+            if (nLabelTypeID == CDefines.TYPE_PROJECT_TYPE)
+            {
+                List<CProjectType> lsTypes = m_lsProjectTypes.Where((t) =>
+                {
+                    return t.m_szText.Equals(szText);
+                }).ToList();
+                if (lsTypes.Count > 0) nID = lsTypes[0].m_nID;
+            }
+            else if (nLabelTypeID == CDefines.TYPE_PROJECT_STATUS)
+            {
+                List<CProjectStatus> lsStatus = m_lsProjectStatuses.Where((s) =>
+                {
+                    return s.m_szText.Equals(szText);
+                }).ToList();
+                if (lsStatus.Count > 0) nID = lsStatus[0].m_nID;
+            }
+
+            return nID;
+        }
+        public string[] GetProjectTypeLabels()
+        {
+            List<CProjectType> lsTypes = m_lsProjectTypes;
+            string[] labels = new string[lsTypes.Count];
+            for (int x = 0; x < labels.Length; x++)
+            {
+                labels[x] = lsTypes[x].m_szText;
+            }
+            return labels;
+        }
+        public string[] GetProjectStatusLabels()
+        {
+            List<CProjectStatus> lsStatus = m_lsProjectStatuses;
+            string[] labels = new string[lsStatus.Count];
+            for (int x = 0; x < labels.Length; x++)
+            {
+                labels[x] = lsStatus[x].m_szText;
+            }
+            return labels;
+        }
         public CProject[] GetProjects(string text="", int type = -1, int status = -1)
         {
             string[] szTerms = text.ToLower().Split(' ');
@@ -122,6 +206,8 @@ namespace ProjectManagementApp
             if (result.GetType() == typeof(CProject)) m_lsProjects.Remove((CProject)result);
             if (result.GetType() == typeof(CResource)) m_lsResources.Remove((CResource)result);
             if (result.GetType() == typeof(CNotebookPage)) m_lsNotebookPages.Remove((CNotebookPage)result);
+            if (result.GetType() == typeof(CProjectType)) m_lsProjectTypes.Remove((CProjectType)result);
+            if (result.GetType() == typeof(CProjectStatus)) m_lsProjectStatuses.Remove((CProjectStatus)result);
 
             return result;
         }
@@ -142,6 +228,14 @@ namespace ProjectManagementApp
                     break;
                 case CDefines.TYPE_NOTEBOOK_PAGE:
                     if (m_lsNotebookPages.Count > 0) nMaxID = m_lsNotebookPages.Max((pg) => { return pg.m_nID; });
+                    nID = nMaxID + 1;
+                    break;
+                case CDefines.TYPE_PROJECT_TYPE:
+                    if (m_lsProjectTypes.Count > 0) nMaxID = m_lsProjectTypes.Max((pt) => { return pt.m_nID; });
+                    nID = nMaxID + 1;
+                    break;
+                case CDefines.TYPE_PROJECT_STATUS:
+                    if (m_lsProjectStatuses.Count > 0) nMaxID = m_lsProjectStatuses.Max((pt) => { return pt.m_nID; });
                     nID = nMaxID + 1;
                     break;
                 default:
@@ -171,6 +265,16 @@ namespace ProjectManagementApp
                     data.m_nID = NewID(nTypeID);
                     m_lsNotebookPages.Add((CNotebookPage)data);
                     break;
+                case CDefines.TYPE_PROJECT_TYPE:
+                    data = new CProjectType();
+                    data.m_nID = NewID(nTypeID);
+                    m_lsProjectTypes.Add((CProjectType)data);
+                    break;
+                case CDefines.TYPE_PROJECT_STATUS:
+                    data = new CProjectStatus();
+                    data.m_nID = NewID(nTypeID);
+                    m_lsProjectStatuses.Add((CProjectStatus)data);
+                    break;
                 default:
                     break;
             }
@@ -195,11 +299,13 @@ namespace ProjectManagementApp
                 if (!File.Exists(szFileName)) File.Create(szFileName).Close();
                 string szJson = File.ReadAllText(szFileName);
                 Instance = JsonConvert.DeserializeObject<CJsonDatabase>(szJson);
-                if(Instance != null) Instance.PopulateDataTable();
+                if (Instance != null) Instance.PopulateDataTable();
                 else
                 {
                     Instance = new CJsonDatabase();
+                    Instance.PopulateDefaultLabels();
                     Instance.PopulateDataTable();
+
                 }
                 Instance.m_szFileName = szFileName;
 

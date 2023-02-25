@@ -41,7 +41,7 @@ namespace ProjectManagementApp
             {
                 m_nTypeID = CDefines.TYPE_PROJECT;
                 m_szName = "New Project";
-                m_nStatusID = CDefines.PROJ_STATUS_NEW;
+                m_nStatusID = -1;
                 m_dtLastWorkedOn = DateTime.Now;
                 m_szProjectDir = "";
                 m_szWrikeUrl = "";
@@ -51,7 +51,7 @@ namespace ProjectManagementApp
                 m_nSourceControlID = CDefines.PROJ_SRCCTRL_GIT;
                 m_szMainContact = "N/A";
                 m_szMainDeveloper = "N/A";
-                m_nProjTypeID = CDefines.PROJ_TYPE_DESKTOP;
+                m_nProjTypeID = -1;
                 m_pColor = Color.White;
             }
             catch(Exception ex)
@@ -110,17 +110,22 @@ namespace ProjectManagementApp
         [DisplayName("Type")]
         public string szProjType
         {
-            get { return CDefines.PROJ_TYPE_LABELS[m_nProjTypeID]; }
+            get
+            {
+                CProjectType type = null;
+                if (m_nProjTypeID != -1) type = (CProjectType)CJsonDatabase.Instance.Fetch(CDefines.TYPE_PROJECT_TYPE, m_nProjTypeID);
+
+                if (type != null) return type.m_szText;
+                else return "";
+            }
             set
             {
-                for (int x = 0; x < CDefines.PROJ_TYPE_LABELS.Length; x++)
+                List<CProjectType> lsProjTypes = CJsonDatabase.Instance.m_lsProjectTypes;
+                List<CProjectType> matches = new List<CProjectType>(lsProjTypes.Where((type) =>
                 {
-                    if (CDefines.PROJ_TYPE_LABELS[x].Equals(value))
-                    {
-                        m_nProjTypeID = x;
-                        break;
-                    }
-                }
+                    return type.m_szText.Equals(value);
+                }));
+                m_nProjTypeID = matches[0].m_nID;
 
                 m_dtLastUpdated = DateTime.Now;
                 CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
@@ -136,17 +141,22 @@ namespace ProjectManagementApp
         [DisplayName("Status")]
         public string szStatus
         {
-            get { return CDefines.PROJ_STATUS_LABELS[m_nStatusID]; }
+            get
+            {
+                CProjectStatus status = null;
+                if (m_nStatusID != -1) status = (CProjectStatus)CJsonDatabase.Instance.Fetch(CDefines.TYPE_PROJECT_STATUS, m_nStatusID);
+
+                if (status != null) return status.m_szText;
+                else return "";
+            }
             set
             {
-                for (int x = 0; x < CDefines.PROJ_STATUS_LABELS.Length; x++)
+                List<CProjectStatus> lsProjStatus = CJsonDatabase.Instance.m_lsProjectStatuses;
+                List<CProjectStatus> matches = new List<CProjectStatus>(lsProjStatus.Where((s) =>
                 {
-                    if (CDefines.PROJ_STATUS_LABELS[x].Equals(value))
-                    {
-                        m_nStatusID = x;
-                        break;
-                    }
-                }
+                    return s.m_szText.Equals(value);
+                }));
+                m_nStatusID = matches[0].m_nID;
 
                 m_dtLastUpdated = DateTime.Now;
                 CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
