@@ -60,6 +60,9 @@ namespace ProjectManagementApp
             this.exportAllToZipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.projectTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.projectStatusesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restoreDefaultLabelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -347,15 +350,41 @@ namespace ProjectManagementApp
             // 
             // viewToolStripMenuItem
             // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.projectTypesToolStripMenuItem,
+            this.projectStatusesToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // toolsToolStripMenuItem
             // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restoreDefaultLabelsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // projectTypesToolStripMenuItem
+            // 
+            this.projectTypesToolStripMenuItem.Name = "projectTypesToolStripMenuItem";
+            this.projectTypesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.projectTypesToolStripMenuItem.Text = "Project Types";
+            this.projectTypesToolStripMenuItem.Click += new System.EventHandler(this.projectTypesToolStripMenuItem_Click);
+            // 
+            // projectStatusesToolStripMenuItem
+            // 
+            this.projectStatusesToolStripMenuItem.Name = "projectStatusesToolStripMenuItem";
+            this.projectStatusesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.projectStatusesToolStripMenuItem.Text = "Project Statuses";
+            this.projectStatusesToolStripMenuItem.Click += new System.EventHandler(this.projectStatusesToolStripMenuItem_Click);
+            // 
+            // restoreDefaultLabelsToolStripMenuItem
+            // 
+            this.restoreDefaultLabelsToolStripMenuItem.Name = "restoreDefaultLabelsToolStripMenuItem";
+            this.restoreDefaultLabelsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.restoreDefaultLabelsToolStripMenuItem.Text = "Restore Default Labels";
+            this.restoreDefaultLabelsToolStripMenuItem.Click += new System.EventHandler(this.restoreDefaultLabelsToolStripMenuItem_Click);
             // 
             // fmProjectManager
             // 
@@ -419,6 +448,9 @@ namespace ProjectManagementApp
         private System.Windows.Forms.ComboBox cbType;
         private System.Windows.Forms.ToolStripMenuItem exportToZipToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportAllToZipToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem projectTypesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem projectStatusesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreDefaultLabelsToolStripMenuItem;
     }
 }
 

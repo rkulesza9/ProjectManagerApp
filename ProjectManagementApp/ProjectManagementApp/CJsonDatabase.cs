@@ -91,9 +91,9 @@ namespace ProjectManagementApp
             m_lsProjectTypes.Clear();
             string[] lsProjTypes = new string[]
             {
-                "Desktop App", "Web App", "Database", "SSRS Report",
-                "Access App", "Gen. Resources", "Research", "Source Control",
-                "Maintenance", "Documentation", "Other"
+                "Desktop App", "Web App", "Database", "Gen. Resources",
+                "Time Management", "Machine Learning", "Mathematics", "Server Management",
+                "Videogame", "Health", "Other"
             };
             foreach (string szLabel in lsProjTypes)
             {

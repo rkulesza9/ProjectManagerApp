@@ -110,11 +110,15 @@ namespace ProjectManagementApp
             try
             {
                 string szName = tbName.Text;
-                int nStatusID = cbStatus.SelectedIndex - 1;
-                int nTypeID = cbType.SelectedIndex - 1;
+                string szStatus = cbStatus.Text;
+                string szType = cbType.Text;
+
+                int nTypeID = CJsonDatabase.Instance.GetIDForLabel(CDefines.TYPE_PROJECT_TYPE, szType);
+                int nStatusID = CJsonDatabase.Instance.GetIDForLabel(CDefines.TYPE_PROJECT_STATUS, szStatus);
 
                 PopulateProjectListView(szName, nTypeID, nStatusID);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
@@ -524,21 +528,24 @@ namespace ProjectManagementApp
             RefreshColumnWidths();
             lvProjects.EndUpdate();
         }
+        // PopulateStatusDropdown
         private void PopulateStatusDropDown()
         {
             cbStatus.BeginUpdate();
             cbStatus.Items.Clear();
             cbStatus.Items.Add("Any Status");
-            cbStatus.Items.AddRange(CDefines.PROJ_STATUS_LABELS);
+            cbStatus.Items.AddRange(CJsonDatabase.Instance.GetProjectStatusLabels());
             cbStatus.SelectedIndex = 0;
             cbStatus.EndUpdate();
         }
+
+        // PopulateTypeDropdown
         private void PopulateTypeDropdown()
         {
             cbType.BeginUpdate();
             cbType.Items.Clear();
             cbType.Items.Add("Any Type");
-            cbType.Items.AddRange(CDefines.PROJ_TYPE_LABELS);
+            cbType.Items.AddRange(CJsonDatabase.Instance.GetProjectTypeLabels());
             cbType.SelectedIndex = 0;
             cbType.EndUpdate();
         }
@@ -559,6 +566,7 @@ namespace ProjectManagementApp
                 hdr.Width = -2;
             }
         }
+
         #endregion
 
         private string ToRtf(string text)
@@ -578,5 +586,66 @@ namespace ProjectManagementApp
             return szRtb;
         }
 
+        private void projectTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fmLabel fm = new fmLabel(CDefines.TYPE_PROJECT_TYPE);
+                fm.OnLabelsUpdated += () =>
+                {
+                    PopulateTypeDropdown();
+                    foreach (CListViewItem item in lvProjects.Items)
+                    {
+                        CBaseData data = (CBaseData)item.Tag;
+                        data.UpdateUI();
+                    }
+                };
+                fm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("projectTypesToolStripMenuItem_Click");
+                Debug.WriteLine(ex);
+            }
+        }
+
+        private void projectStatusesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fmLabel fm = new fmLabel(CDefines.TYPE_PROJECT_STATUS);
+                fm.OnLabelsUpdated += () =>
+                {
+                    PopulateStatusDropDown();
+                    foreach (CListViewItem item in lvProjects.Items)
+                    {
+                        CBaseData data = (CBaseData)item.Tag;
+                        data.UpdateUI();
+                    }
+                };
+                fm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("projectTypesToolStripMenuItem_Click");
+                Debug.WriteLine(ex);
+            }
+        }
+
+        private void restoreDefaultLabelsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CJsonDatabase.Instance.PopulateDefaultLabels();
+                PopulateTypeDropdown();
+                PopulateStatusDropDown();
+                PopulateProjectListView();
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
     }
 }

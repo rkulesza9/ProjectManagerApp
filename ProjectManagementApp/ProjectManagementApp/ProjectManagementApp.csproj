@@ -108,6 +108,8 @@
     <Compile Include="CListViewComparer.cs" />
     <Compile Include="CNotebookPage.cs" />
     <Compile Include="CProject.cs" />
+    <Compile Include="CProjectStatus.cs" />
+    <Compile Include="CProjectType.cs" />
     <Compile Include="CResRightClickMenu.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -116,6 +118,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CTypeConverters.cs" />
+    <Compile Include="fmLabel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmLabel.Designer.cs">
+      <DependentUpon>fmLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="fmLongNote.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +150,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="fmLabel.resx">
+      <DependentUpon>fmLabel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fmLongNote.resx">
       <DependentUpon>fmLongNote.cs</DependentUpon>
     </EmbeddedResource>
