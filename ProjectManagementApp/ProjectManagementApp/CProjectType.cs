@@ -13,6 +13,7 @@ namespace ProjectManagementApp
     {
         // json friendly
         public string m_szText;
+        public int m_nSortOrder;
 
         public CProjectType() : base()
         {
@@ -31,7 +32,7 @@ namespace ProjectManagementApp
             {
                 m_nTypeID = CDefines.TYPE_PROJECT_TYPE;
                 m_szText = "< New Type >";
-
+                m_nSortOrder = -1;
             }
             catch (Exception ex)
             {
@@ -48,7 +49,8 @@ namespace ProjectManagementApp
             switch (nListViewTypeID)
             {
                 case CDefines.UI_LISTVIEW_LABELS:
-                    item.Text = m_szText;
+                    item.Text = m_nSortOrder.ToString();
+                    item.SubItems.Add(m_szText);
                     break;
                 default:
                     break;
@@ -67,6 +69,22 @@ namespace ProjectManagementApp
             set
             {
                 m_szText = value;
+                m_dtLastUpdated = DateTime.Now;
+                CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
+                UpdateUI();
+            }
+        }
+        [JsonIgnore]
+        [ReadOnly(false)]
+        [Browsable(true)]
+        [Category("Properties")]
+        [DisplayName("Sort Order")]
+        public int nSortOrder
+        {
+            get { return m_nSortOrder; }
+            set
+            {
+                m_nSortOrder = value;
                 m_dtLastUpdated = DateTime.Now;
                 CJsonDatabase.Instance.Save(CJsonDatabase.Instance.m_szFileName);
                 UpdateUI();

@@ -95,9 +95,12 @@ namespace ProjectManagementApp
                 "Time Management", "Machine Learning", "Mathematics", "Server Management",
                 "Videogame", "Health", "Other"
             };
-            foreach (string szLabel in lsProjTypes)
+            for (int x = 0; x < lsProjTypes.Length; x++)
             {
-                ((CProjectType)Fetch(CDefines.TYPE_PROJECT_TYPE, -1)).m_szText = szLabel;
+                string szLabel = lsProjTypes[x];
+                CProjectType pType = ((CProjectType)Fetch(CDefines.TYPE_PROJECT_TYPE, -1));
+                pType.m_szText = szLabel;
+                pType.m_nSortOrder = x;
             }
 
             m_lsProjectStatuses.Clear();
@@ -110,9 +113,12 @@ namespace ProjectManagementApp
                 "Completed",
                 "Canceled"
             };
-            foreach (string szLabel in lsStatus)
+            for(int x = 0; x < lsStatus.Length; x++)
             {
-                ((CProjectStatus)Fetch(CDefines.TYPE_PROJECT_STATUS, -1)).m_szText = szLabel;
+                string szLabel = lsStatus[x];
+                CProjectStatus pStatus = ((CProjectStatus)Fetch(CDefines.TYPE_PROJECT_STATUS, -1));
+                pStatus.m_szText = szLabel;
+                pStatus.m_nSortOrder = x;
             }
         }
         public int GetIDForLabel(int nLabelTypeID, string szText)
@@ -140,7 +146,7 @@ namespace ProjectManagementApp
         }
         public string[] GetProjectTypeLabels()
         {
-            List<CProjectType> lsTypes = m_lsProjectTypes;
+            List<CProjectType> lsTypes = new List<CProjectType>(m_lsProjectTypes.OrderBy((t) => { return t.m_nSortOrder; }));
             string[] labels = new string[lsTypes.Count];
             for (int x = 0; x < labels.Length; x++)
             {
@@ -150,7 +156,7 @@ namespace ProjectManagementApp
         }
         public string[] GetProjectStatusLabels()
         {
-            List<CProjectStatus> lsStatus = m_lsProjectStatuses;
+            List<CProjectStatus> lsStatus = new List<CProjectStatus>(m_lsProjectStatuses.OrderBy((t) => { return t.m_nSortOrder; }));
             string[] labels = new string[lsStatus.Count];
             for (int x = 0; x < labels.Length; x++)
             {

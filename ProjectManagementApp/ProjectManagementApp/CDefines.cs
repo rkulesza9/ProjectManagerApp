@@ -55,6 +55,7 @@ namespace ProjectManagementApp
             {
                 return new CColHdr[]
                 {
+                    new CColHdr("Sort Order"),
                     new CColHdr("Label Text")
                 };
             }

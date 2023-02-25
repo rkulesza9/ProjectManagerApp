@@ -58,13 +58,15 @@ namespace ProjectManagementApp
                     {
                         xPType = (CProjectType)xData;
                         yPType = (CProjectType)yData;
-                        if (m_nColumn == 0) return nOrder * xPType.m_szText.CompareTo(yPType.m_szText);
+                        if(m_nColumn == 0) return nOrder * xPType.m_nSortOrder.CompareTo(yPType.m_nSortOrder);
+                        if (m_nColumn == 1) return nOrder * xPType.m_szText.CompareTo(yPType.m_szText);
                     }
                     else if (xData.GetType() == typeof(CProjectStatus))
                     {
                         xStatus = (CProjectStatus)xData;
                         yStatus = (CProjectStatus)yData;
-                        if (m_nColumn == 0) return nOrder * xStatus.m_szText.CompareTo(yStatus.m_szText);
+                        if (m_nColumn == 0) return nOrder * xStatus.m_nSortOrder.CompareTo(yStatus.m_nSortOrder);
+                        if (m_nColumn == 1) return nOrder * xStatus.m_szText.CompareTo(yStatus.m_szText);
                     }
                     break;
                 default:
